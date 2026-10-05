@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIVORO Cookie Scan</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #faf7f0;
+      margin: 0;
+      padding: 30px 15px;
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .camera-box {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 4 / 3;
+      margin: 25px auto;
+      background: #111;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .scan-frame {
+      position: absolute;
+      top: 20%;
+      left: 15%;
+      right: 15%;
+      bottom: 20%;
+      border: 3px solid white;
+      border-radius: 15px;
+    }
+
+    button {
+      padding: 14px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .progress {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🍪 BIVORO Cookie Scan</h1>
+
+  <p class="subtitle">
+    Halte deinen BIVORO-Cookie vor die Kamera.
+    <br>
+    Entdecke alle 6 Cookies und schalte deinen Rabatt frei!
+  </p>
+
+  <div class="camera-box">
+    <video id="camera" autoplay playsinline></video>
+    <div class="scan-frame"></div>
+  </div>
+
+  <button id="startButton">
+    📷 Kamera starten
+  </button>
+
+  <button id="stopButton" disabled>
+    Kamera stoppen
+  </button>
+
+  <div id="status">
+    Kamera noch nicht gestartet.
+  </div>
+
+  <div class="progress">
+    🍪 Entdeckt: <strong>0 / 6</strong>
+  </div>
+
+</div>
+
+<script>
+
+let stream = null;
+
+const video = document.getElementById("camera");
+const startButton = document.getElementById("startButton");
+const stopButton = document.getElementById("stopButton");
+const status = document.getElementById("status");
+
+startButton.addEventListener("click", async () => {
+
+  try {
+
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: "environment"
+      },
+      audio: false
+    });
+
+    video.srcObject = stream;
+
+    status.textContent =
+      "Kamera läuft! Halte deinen Cookie in den Rahmen. 🍪";
+
+    startButton.disabled = true;
+    stopButton.disabled = false;
+
+  } catch (error) {
+
+    status.textContent =
+      "Die Kamera konnte nicht gestartet werden. Bitte erlaube den Kamerazugriff.";
+
+    console.error(error);
+
+  }
+
+});
+
+stopButton.addEventListener("click", () => {
+
+  if (stream) {
+
+    stream.getTracks().forEach(track => {
+      track.stop();
+    });
+
+    stream = null;
+  }
+
+  video.srcObject = null;
+
+  status.textContent =
+    "Kamera gestoppt.";
+
+  startButton.disabled = false;
+  stopButton.disabled = true;
+
+});
+
+</script>
+
+</body>
+</html>
