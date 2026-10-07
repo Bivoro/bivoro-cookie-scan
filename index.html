@@ -3,185 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>BIVORO Cookie Scan</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #faf7f0;
       margin: 0;
-      padding: 30px 15px;
-      text-align: center;
-      color: #333;
+      font-family: Arial, sans-serif;
+      background: #f7f3ed;
+      color: #302b26;
     }
 
-    .container {
-      max-width: 600px;
-      margin: auto;
+    header {
+      background: #ffffff;
+      padding: 22px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5ded5;
     }
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
     }
 
     .subtitle {
+      font-size: 14px;
+      color: #777;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 70px auto;
+      padding: 0 25px;
+    }
+
+    .hero {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 46px;
+      margin-bottom: 15px;
+    }
+
+    .intro {
       font-size: 18px;
-      line-height: 1.5;
+      line-height: 1.6;
+      color: #625b54;
+      max-width: 650px;
+      margin: 0 auto 35px;
     }
 
-    .camera-box {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      aspect-ratio: 4 / 3;
-      margin: 25px auto;
-      background: #111;
-      border-radius: 20px;
-      overflow: hidden;
+    .scanner {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
-    .scan-frame {
-      position: absolute;
-      top: 20%;
-      left: 15%;
-      right: 15%;
-      bottom: 20%;
-      border: 3px solid white;
-      border-radius: 15px;
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
     }
 
     button {
-      padding: 14px 25px;
-      font-size: 18px;
+      padding: 15px 24px;
       border: none;
-      border-radius: 12px;
-      background: #333;
+      border-radius: 10px;
+      background: #302b26;
       color: white;
-      cursor: pointer;
-      margin: 5px;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    #status {
-      margin-top: 20px;
+      font-size: 16px;
       font-weight: bold;
-      font-size: 17px;
+      cursor: pointer;
     }
 
-    .progress {
-      margin-top: 20px;
-      font-size: 18px;
+    button:hover {
+      opacity: 0.85;
+    }
+
+    #results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .cookie-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 5px solid #aaa;
+    }
+
+    .cookie-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .category {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #eee;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .necessary {
+      border-left-color: #6b8e5b;
+    }
+
+    .analytics {
+      border-left-color: #c49a55;
+    }
+
+    .marketing {
+      border-left-color: #a66b6b;
+    }
+
+    .unknown {
+      border-left-color: #888;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .input-row {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <header>
+    <div class="logo">BIVORO</div>
+    <div class="subtitle">Cookie Scan</div>
+  </header>
 
-  <h1>🍪 BIVORO Cookie Scan</h1>
+  <main>
 
-  <p class="subtitle">
-    Halte deinen BIVORO-Cookie vor die Kamera.
-    <br>
-    Entdecke alle 6 Cookies und schalte deinen Rabatt frei!
-  </p>
+    <section class="hero">
 
-  <div class="camera-box">
-    <video id="camera" autoplay playsinline></video>
-    <div class="scan-frame"></div>
-  </div>
+      <h1>Cookie Scan</h1>
 
-  <button id="startButton">
-    📷 Kamera starten
-  </button>
+      <p class="intro">
+        Überprüfe eine Website und entdecke, welche Cookies
+        verwendet werden und welchem Zweck sie dienen.
+      </p>
 
-  <button id="stopButton" disabled>
-    Kamera stoppen
-  </button>
+      <div class="scanner">
 
-  <div id="status">
-    Kamera noch nicht gestartet.
-  </div>
+        <label for="website">
+          Website-Adresse
+        </label>
 
-  <div class="progress">
-    🍪 Entdeckt: <strong>0 / 6</strong>
-  </div>
+        <div class="input-row">
 
-</div>
+          <input
+            type="url"
+            id="website"
+            placeholder="https://example.com"
+          >
 
-<script>
+          <button onclick="startScan()">
+            Website scannen
+          </button>
 
-let stream = null;
+        </div>
 
-const video = document.getElementById("camera");
-const startButton = document.getElementById("startButton");
-const stopButton = document.getElementById("stopButton");
-const status = document.getElementById("status");
+      </div>
 
-startButton.addEventListener("click", async () => {
+    </section>
 
-  try {
 
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: "environment"
-      },
-      audio: false
-    });
+    <section id="results">
 
-    video.srcObject = stream;
+      <div class="result-header">
 
-    status.textContent =
-      "Kamera läuft! Halte deinen Cookie in den Rahmen. 🍪";
+        <h2>Scan-Ergebnis</h2>
 
-    startButton.disabled = true;
-    stopButton.disabled = false;
+        <p id="scannedWebsite"></p>
 
-  } catch (error) {
+      </div>
 
-    status.textContent =
-      "Die Kamera konnte nicht gestartet werden. Bitte erlaube den Kamerazugriff.";
 
-    console.error(error);
+      <div class="cookie-card necessary">
 
-  }
+        <span class="category">
+          Notwendig
+        </span>
 
-});
+        <h3>session_id</h3>
 
-stopButton.addEventListener("click", () => {
+        <p>
+          Dieses Cookie kann für grundlegende Funktionen
+          der Website benötigt werden.
+        </p>
 
-  if (stream) {
+      </div>
 
-    stream.getTracks().forEach(track => {
-      track.stop();
-    });
 
-    stream = null;
-  }
+      <div class="cookie-card analytics">
 
-  video.srcObject = null;
+        <span class="category">
+          Analyse
+        </span>
 
-  status.textContent =
-    "Kamera gestoppt.";
+        <h3>_analytics</h3>
 
-  startButton.disabled = false;
-  stopButton.disabled = true;
+        <p>
+          Dieses Cookie kann zur Analyse des
+          Besucherverhaltens verwendet werden.
+        </p>
 
-});
+      </div>
 
-</script>
+
+      <div class="cookie-card marketing">
+
+        <span class="category">
+          Marketing
+        </span>
+
+        <h3>marketing_id</h3>
+
+        <p>
+          Dieses Cookie kann für personalisierte
+          Werbung oder Marketing verwendet werden.
+        </p>
+
+      </div>
+
+
+      <div class="cookie-card unknown">
+
+        <span class="category">
+          Unbekannt
+        </span>
+
+        <h3>example_cookie</h3>
+
+        <p>
+          Der Zweck dieses Cookies konnte noch nicht
+          eindeutig bestimmt werden.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    BIVORO Cookie Scan · Schulprojekt
+  </footer>
+
+
+  <script>
+
+    function startScan() {
+
+      const website =
+        document.getElementById("website").value.trim();
+
+      if (website === "") {
+
+        alert("Bitte gib zuerst eine Website-Adresse ein.");
+
+        return;
+      }
+
+      document.getElementById("results").style.display = "block";
+
+      document.getElementById("scannedWebsite").textContent =
+        "Getestete Website: " + website;
+
+      document.getElementById("results")
+        .scrollIntoView({ behavior: "smooth" });
+
+    }
+
+  </script>
 
 </body>
 </html>
+
+    
