@@ -4,29 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BIVORO Cookie Scan</title>
+  <title>BIVORO – Cookie Scan</title>
 
-  <!-- BIVORO SCHRIFTEN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;600;700&family=Mulish:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;600;700&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-
-    /* =========================================
-       GRUNDLAGEN
-    ========================================= */
-
     * {
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -34,194 +20,75 @@
       background: #F9E2D5;
       color: #333333;
       font-family: "Mulish", sans-serif;
-      min-height: 100vh;
     }
 
-    button {
-      font-family: "Mulish", sans-serif;
-    }
-
-    h1,
-    h2,
-    h3 {
+    h1, h2, h3 {
       font-family: "Cormorant SC", serif;
       color: #8B0000;
       margin-top: 0;
     }
 
-    /* =========================================
-       HEADER
-    ========================================= */
-
-    header {
-      width: 100%;
-      padding: 22px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: "Cormorant SC", serif;
-      font-size: 31px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: #8B0000;
-    }
-
-    .header-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #555555;
-    }
-
-    /* =========================================
-       HAUPTBEREICH
-    ========================================= */
-
-    main {
-      max-width: 1000px;
-      margin: 15px auto 70px;
-      padding: 0 20px;
+    button {
+      font-family: "Mulish", sans-serif;
+      cursor: pointer;
     }
 
     .screen {
       display: none;
-      animation: fadeIn 0.35s ease;
+      min-height: 100vh;
+      padding: 30px 18px 50px;
     }
 
     .screen.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .hero h1 {
-      font-size: 54px;
-      margin: 15px 0 10px;
-    }
-
-    .intro {
-      max-width: 680px;
-      margin: 0 auto;
-      color: #4d4d4d;
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    /* =========================================
-       ÜBERSICHT
-    ========================================= */
-
-    .cookie-grid {
+    .container {
+      width: 100%;
       max-width: 850px;
-      margin: 30px auto;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      margin: 0 auto;
     }
 
-    .country-card {
-      background: #fffaf7;
-      border: 2px solid transparent;
-      border-radius: 22px;
-      padding: 24px;
-      cursor: pointer;
-      box-shadow: 0 6px 22px rgba(80, 40, 20, 0.08);
-      transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-    }
+    /* HEADER */
 
-    .country-card:hover {
-      transform: translateY(-3px);
-      border-color: #8B0000;
-      box-shadow: 0 10px 28px rgba(80, 40, 20, 0.12);
-    }
-
-    .country-card.completed {
-      background: #f4f8f0;
-      border-color: #6f8f65;
-    }
-
-    .country-card.completed:hover {
-      border-color: #6f8f65;
-    }
-
-    .country-card.disabled {
-      cursor: default;
-    }
-
-    .country-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .flag {
-      font-size: 38px;
-      line-height: 1;
-    }
-
-    .check {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .country-card.completed .check {
-      background: #6f8f65;
-      color: white;
-    }
-
-    .country-card h3 {
-      font-size: 28px;
-      margin: 15px 0 5px;
-    }
-
-    .country-card p {
-      margin: 0;
-      font-size: 14px;
-      color: #666666;
-    }
-
-    .progress-area {
-      max-width: 600px;
-      margin: 30px auto;
+    .logo {
       text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .logo h1 {
+      font-size: 42px;
+      margin-bottom: 0;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 28px;
+    }
+
+    /* PROGRESS */
+
+    .progress-box {
+      background: rgba(255,255,255,0.6);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
     }
 
     .progress-text {
-      color: #8B0000;
+      text-align: center;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
     .progress-bar {
       width: 100%;
-      height: 9px;
-      background: rgba(139, 0, 0, 0.12);
+      height: 10px;
+      background: #ead0c2;
       border-radius: 20px;
       overflow: hidden;
     }
@@ -231,651 +98,514 @@
       width: 0%;
       background: #8B0000;
       border-radius: 20px;
-      transition: width 0.5s ease;
+      transition: width 0.3s ease;
     }
 
-    /* =========================================
-       FAKTEN
-    ========================================= */
+    /* COOKIE GRID */
 
-    .content-card {
-      max-width: 760px;
-      margin: 25px auto;
-      padding: 32px;
-      background: #fffaf7;
-      border-radius: 24px;
-      box-shadow: 0 7px 25px rgba(80, 40, 20, 0.08);
+    .cookie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
     }
 
-    .big-flag {
-      font-size: 65px;
+    .cookie-card {
+      background: rgba(255,255,255,0.72);
+      border: 2px solid transparent;
+      border-radius: 20px;
+      padding: 20px 15px;
       text-align: center;
+      transition: 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .cookie-card:hover {
+      transform: translateY(-2px);
+      border-color: #8B0000;
+    }
+
+    .cookie-card.completed {
+      border-color: #8B0000;
+      background: rgba(139,0,0,0.08);
+    }
+
+    .flag {
+      font-size: 38px;
       margin-bottom: 5px;
     }
 
-    .country-heading {
-      text-align: center;
+    .cookie-card h3 {
+      font-size: 23px;
+      margin-bottom: 5px;
     }
 
-    .country-heading h1 {
-      margin-bottom: 8px;
+    .flavor {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
     }
 
-    .fact {
-      background: #F9E2D5;
-      border-radius: 17px;
-      padding: 20px;
-      margin: 15px 0;
-      line-height: 1.65;
-    }
-
-    .fact strong {
+    .completed-label {
+      font-size: 13px;
+      font-weight: 700;
       color: #8B0000;
     }
 
-    .cookie-info {
+    .choose-btn {
+      border: none;
       background: #8B0000;
       color: white;
-      border-radius: 17px;
-      padding: 22px;
-      margin-top: 25px;
-      line-height: 1.6;
+      padding: 10px 17px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 14px;
     }
 
-    .cookie-info h3 {
-      color: white;
+    /* FACTS */
+
+    .facts-card {
+      background: rgba(255,255,255,0.75);
+      border-radius: 25px;
+      padding: 28px 23px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .country-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .country-title .flag {
+      font-size: 50px;
+    }
+
+    .country-title h2 {
+      font-size: 36px;
+      margin-bottom: 0;
+    }
+
+    .fact-section {
+      margin-bottom: 28px;
+    }
+
+    .fact-section h3 {
+      font-size: 24px;
       margin-bottom: 8px;
-      font-size: 25px;
     }
 
-    .cookie-info p {
+    .fact-section p {
+      line-height: 1.65;
+      font-size: 16px;
       margin: 0;
     }
 
-    /* =========================================
-       BUTTONS
-    ========================================= */
+    /* BUTTONS */
 
-    .button-area {
-      text-align: center;
-      margin-top: 30px;
+    .button-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 25px;
+      flex-wrap: wrap;
     }
 
-    .primary-button {
+    .main-btn {
       border: none;
-      border-radius: 30px;
       background: #8B0000;
       color: white;
-      padding: 15px 30px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .primary-button:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
-
-    .secondary-button {
-      border: 2px solid #8B0000;
+      padding: 13px 22px;
       border-radius: 30px;
+      font-weight: 700;
+      font-size: 15px;
+      min-width: 170px;
+    }
+
+    .secondary-btn {
+      border: 2px solid #8B0000;
       background: transparent;
       color: #8B0000;
-      padding: 13px 28px;
-      font-size: 16px;
+      padding: 11px 20px;
+      border-radius: 30px;
       font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
+      font-size: 15px;
     }
 
-    .secondary-button:hover {
-      background: rgba(139, 0, 0, 0.06);
-    }
+    /* SCANNER */
 
-    /* =========================================
-       SCANNER
-    ========================================= */
-
-    .scanner-box {
-      max-width: 720px;
-      margin: 25px auto;
-      padding: 25px;
-      background: #fffaf7;
-      border-radius: 24px;
-      box-shadow: 0 7px 25px rgba(80, 40, 20, 0.08);
+    .scanner-card {
+      background: rgba(255,255,255,0.75);
+      border-radius: 25px;
+      padding: 24px;
       text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .scanner-card h2 {
+      font-size: 34px;
+      margin-bottom: 5px;
+    }
+
+    .scanner-card p {
+      line-height: 1.5;
     }
 
     .camera-container {
-      position: relative;
       width: 100%;
-      min-height: 310px;
-      background: #202020;
-      border-radius: 19px;
+      max-width: 550px;
+      margin: 22px auto;
+      background: #222;
+      border-radius: 20px;
       overflow: hidden;
+      position: relative;
+      min-height: 280px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      justify-content: center;
     }
 
-    #camera {
+    video {
       width: 100%;
-      height: auto;
-      display: none;
-      object-fit: cover;
+      display: block;
+      border-radius: 20px;
     }
 
-    .camera-message {
+    .camera-placeholder {
+      color: white;
       padding: 30px;
-      color: #eeeeee;
       text-align: center;
     }
 
-    .camera-frame {
+    .scan-frame {
       position: absolute;
       width: 70%;
-      height: 65%;
-      border: 2px solid rgba(255, 255, 255, 0.75);
-      border-radius: 18px;
-      display: none;
+      height: 60%;
+      border: 3px solid white;
+      border-radius: 22px;
       pointer-events: none;
     }
 
-    .camera-frame.active {
-      display: block;
-    }
-
-    .scan-status {
-      margin-top: 18px;
-      min-height: 24px;
-      color: #8B0000;
-      font-weight: 700;
-    }
-
-    .scan-hint {
-      color: #666666;
+    .camera-status {
       font-size: 14px;
-      line-height: 1.5;
       margin-top: 10px;
+      color: #555;
     }
 
-    /* =========================================
-       ERFOLG
-    ========================================= */
+    .cookie-description {
+      background: #F9E2D5;
+      border-radius: 15px;
+      padding: 14px;
+      margin-top: 18px;
+      text-align: left;
+    }
 
-    .success-box {
-      max-width: 650px;
-      margin: 35px auto;
-      padding: 45px 25px;
-      background: #fffaf7;
-      border-radius: 25px;
-      box-shadow: 0 8px 28px rgba(80, 40, 20, 0.1);
+    .cookie-description strong {
+      color: #8B0000;
+    }
+
+    /* SUCCESS */
+
+    .success-card,
+    .reward-card {
+      max-width: 600px;
+      margin: 70px auto 0;
+      background: rgba(255,255,255,0.8);
+      border-radius: 28px;
+      padding: 35px 25px;
       text-align: center;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
     }
 
     .success-icon {
-      font-size: 65px;
+      font-size: 60px;
       margin-bottom: 10px;
     }
 
-    .success-box h1 {
-      margin-bottom: 10px;
+    .success-card h2,
+    .reward-card h2 {
+      font-size: 38px;
     }
 
-    /* =========================================
-       RABATTCODE
-    ========================================= */
-
-    .reward {
-      max-width: 700px;
-      margin: 35px auto;
-      padding: 45px 25px;
-      background: #fffaf7;
-      border-radius: 25px;
-      box-shadow: 0 8px 30px rgba(80, 40, 20, 0.1);
-      text-align: center;
+    .success-card p,
+    .reward-card p {
+      line-height: 1.6;
     }
 
-    .reward h1 {
-      margin-bottom: 10px;
-    }
-
-    .reward-code {
-      display: inline-block;
-      margin: 25px 0 15px;
-      padding: 18px 30px;
+    .discount-code {
       background: #F9E2D5;
       border: 2px dashed #8B0000;
-      border-radius: 16px;
       color: #8B0000;
-      font-size: 28px;
+      border-radius: 15px;
+      padding: 16px;
+      font-size: 25px;
       font-weight: 700;
       letter-spacing: 2px;
+      margin: 20px 0;
     }
 
-    #copyMessage {
-      min-height: 22px;
-      color: #6f8f65;
-      font-weight: 700;
-    }
+    /* MOBILE */
 
-    /* =========================================
-       FOOTER
-    ========================================= */
-
-    footer {
-      text-align: center;
-      padding: 35px 20px;
-      color: #666666;
-      font-size: 13px;
-    }
-
-    /* =========================================
-       MOBILE
-    ========================================= */
-
-    @media (max-width: 650px) {
-
-      header {
-        padding: 18px 5%;
+    @media (max-width: 600px) {
+      .screen {
+        padding: 22px 13px 40px;
       }
 
-      .logo {
-        font-size: 26px;
-      }
-
-      .header-title {
-        font-size: 13px;
-      }
-
-      main {
-        margin-top: 5px;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-      }
-
-      .intro {
-        font-size: 15px;
+      .logo h1 {
+        font-size: 35px;
       }
 
       .cookie-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
       }
 
-      .country-card {
-        padding: 20px;
+      .facts-card {
+        padding: 23px 18px;
       }
 
-      .content-card,
-      .scanner-box,
-      .success-box,
-      .reward {
-        padding: 22px;
+      .country-title h2 {
+        font-size: 32px;
       }
 
-      .big-flag {
-        font-size: 55px;
+      .fact-section h3 {
+        font-size: 22px;
+      }
+
+      .fact-section p {
+        font-size: 15px;
+      }
+
+      .scanner-card {
+        padding: 18px 14px;
       }
 
       .camera-container {
-        min-height: 260px;
-      }
-
-      .primary-button,
-      .secondary-button {
-        width: 100%;
-        margin: 5px 0;
-      }
-
-      .reward-code {
-        font-size: 22px;
-        padding: 16px 20px;
+        min-height: 250px;
       }
     }
-
   </style>
 </head>
 
-
 <body>
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
+  <!-- =========================
+       START / ÜBERSICHT
+  ========================== -->
 
-  <header>
+  <section id="homeScreen" class="screen active">
+    <div class="container">
 
-    <div class="logo">
-      BIVORO
-    </div>
-
-    <div class="header-title">
-      Cookie Scan
-    </div>
-
-  </header>
-
-
-  <main>
-
-
-    <!-- =========================================
-         1. ÜBERSICHT
-    ========================================== -->
-
-    <section id="homeScreen" class="screen active">
-
-      <div class="hero">
-
-        <h1>Cookie Scan</h1>
-
-        <p class="intro">
-          Entdecke die sechs BIVORO-Cookies aus aller Welt.
-          Wähle einen Cookie aus, lies die Fakten und
-          scanne ihn anschliessend mit deiner Kamera.
-        </p>
-
+      <div class="logo">
+        <h1>BIVORO</h1>
       </div>
 
+      <div class="subtitle">
+        Die Welt kulinarisch bereisen – ohne zu fliegen
+      </div>
 
-      <div
-        id="cookieGrid"
-        class="cookie-grid"
-      ></div>
-
-
-      <div class="progress-area">
-
-        <div
-          id="progressText"
-          class="progress-text"
-        >
-          0 / 6 Cookies entdeckt
+      <div class="progress-box">
+        <div id="progressText" class="progress-text">
+          Entdeckt: 0 / 6 Cookies
         </div>
 
         <div class="progress-bar">
-
-          <div
-            id="progressFill"
-            class="progress-fill"
-          ></div>
-
+          <div id="progressFill" class="progress-fill"></div>
         </div>
-
       </div>
 
-    </section>
+      <h2 style="text-align:center; font-size:32px;">
+        Entdecke die Welt
+      </h2>
+
+      <p style="text-align:center; margin-bottom:25px;">
+        Wähle einen Cookie aus und entdecke zuerst die Geschichte hinter seinem Geschmack.
+      </p>
+
+      <div id="cookieGrid" class="cookie-grid"></div>
+
+    </div>
+  </section>
 
 
+  <!-- =========================
+       FAKTEN
+  ========================== -->
 
-    <!-- =========================================
-         2. FAKTEN
-    ========================================== -->
+  <section id="factsScreen" class="screen">
+    <div class="container">
 
-    <section id="factsScreen" class="screen">
+      <div class="facts-card">
 
-      <div class="country-heading">
-
-        <div
-          id="factsFlag"
-          class="big-flag"
-        ></div>
-
-        <h1 id="factsTitle"></h1>
-
-        <p class="intro">
-          Bevor du deinen Cookie scannst,
-          entdecke ein paar spannende Fakten.
-        </p>
-
-      </div>
-
-
-      <div class="content-card">
-
-        <div id="factsContent"></div>
-
-
-        <div class="cookie-info">
-
-          <h3>🍪 Dein BIVORO-Cookie</h3>
-
-          <p id="cookieDescription"></p>
-
+        <div class="country-title">
+          <div id="factsFlag" class="flag"></div>
+          <h2 id="factsCountry"></h2>
         </div>
 
+        <div class="fact-section">
+          <h3>Das Land in Kürze</h3>
+          <p id="factShort"></p>
+        </div>
 
-        <div class="button-area">
+        <div class="fact-section">
+          <h3>Schon gewusst?</h3>
+          <p id="factRandom"></p>
+        </div>
 
-          <button
-            class="primary-button"
-            onclick="openScanner()"
-          >
-            Weiter zum Scan →
+        <div class="fact-section">
+          <h3>Eine Geschichte, die bleibt</h3>
+          <p id="factStory"></p>
+        </div>
+
+        <div class="button-row">
+          <button class="secondary-btn" onclick="showHome()">
+            Zurück
           </button>
 
-          <br><br>
-
-          <button
-            class="secondary-button"
-            onclick="showHome()"
-          >
-            ← Zur Übersicht
+          <button class="main-btn" onclick="openScanner()">
+            Weiter zum Scan
           </button>
-
         </div>
 
       </div>
 
-    </section>
+    </div>
+  </section>
 
 
+  <!-- =========================
+       SCANNER
+  ========================== -->
 
-    <!-- =========================================
-         3. SCANNER
-    ========================================== -->
+  <section id="scannerScreen" class="screen">
+    <div class="container">
 
-    <section id="scannerScreen" class="screen">
+      <div class="scanner-card">
 
-      <div class="country-heading">
+        <div id="scannerFlag" class="flag"></div>
 
-        <div
-          id="scannerFlag"
-          class="big-flag"
-        ></div>
+        <h2 id="scannerCountry"></h2>
 
-        <h1 id="scannerTitle"></h1>
-
-        <p class="intro">
-          Halte jetzt den passenden BIVORO-Cookie
-          vor deine Kamera.
+        <p>
+          Halte jetzt deinen passenden BIVORO-Cookie vor die Kamera.
         </p>
 
-      </div>
-
-
-      <div class="scanner-box">
+        <div class="cookie-description">
+          <strong>Woran erkennst du ihn?</strong>
+          <br>
+          <span id="cookieAppearance"></span>
+        </div>
 
         <div class="camera-container">
 
-          <video
-            id="camera"
-            autoplay
-            playsinline
-            muted
-          ></video>
+          <video id="camera" autoplay playsinline></video>
 
-          <div
-            id="cameraMessage"
-            class="camera-message"
-          >
-            📷<br><br>
-            Starte die Kamera, um deinen Cookie zu scannen.
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            Kamera noch nicht gestartet
           </div>
 
-          <div
-            id="cameraFrame"
-            class="camera-frame"
-          ></div>
+          <div class="scan-frame"></div>
 
         </div>
 
-
-        <button
-          class="primary-button"
-          onclick="startCamera()"
-        >
-          📷 Kamera starten
-        </button>
-
-
-        <button
-          class="secondary-button"
-          onclick="stopCamera()"
-        >
-          Kamera stoppen
-        </button>
-
-
-        <div
-          id="scanStatus"
-          class="scan-status"
-        >
-          Bereit zum Scannen.
+        <div id="cameraStatus" class="camera-status">
+          Kamera gestoppt.
         </div>
 
+        <div class="button-row">
 
-        <p class="scan-hint">
-          Halte den Cookie möglichst ruhig und gut sichtbar
-          in den markierten Bereich.
-        </p>
+          <button class="main-btn" onclick="startCamera()">
+            Kamera starten
+          </button>
 
-      </div>
-
-
-      <div class="button-area">
-
-        <button
-          class="secondary-button"
-          onclick="showHome()"
-        >
-          ← Zur Übersicht
-        </button>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================================
-         4. ERFOLG
-    ========================================== -->
-
-    <section id="successScreen" class="screen">
-
-      <div class="success-box">
-
-        <div class="success-icon">
-          ✅
-        </div>
-
-        <h1 id="successTitle">
-          Cookie entdeckt!
-        </h1>
-
-        <p
-          id="successText"
-          class="intro"
-        ></p>
-
-
-        <div class="button-area">
-
-          <button
-            class="primary-button"
-            onclick="showHome()"
-          >
-            Weiter entdecken →
+          <button class="secondary-btn" onclick="stopCamera()">
+            Kamera stoppen
           </button>
 
         </div>
 
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================================
-         5. ALLE 6
-    ========================================== -->
-
-    <section id="rewardScreen" class="screen">
-
-      <div class="reward">
-
-        <div class="success-icon">
-          🎉
+        <div class="button-row">
+          <button class="secondary-btn" onclick="showScreen('factsScreen')">
+            Zurück zu den Fakten
+          </button>
         </div>
 
-        <h1>Alle 6 entdeckt!</h1>
+      </div>
 
-        <p class="intro">
-          Du hast die komplette BIVORO-Welt entdeckt.
-          Als Belohnung erhältst du deinen Rabattcode.
+    </div>
+  </section>
+
+
+  <!-- =========================
+       ERFOLG
+  ========================== -->
+
+  <section id="successScreen" class="screen">
+    <div class="container">
+
+      <div class="success-card">
+
+        <div class="success-icon">✓</div>
+
+        <h2 id="successTitle">
+          Cookie entdeckt!
+        </h2>
+
+        <p id="successText">
+          Dieser Cookie wurde erfolgreich erkannt.
         </p>
 
+        <div class="button-row">
+          <button class="main-btn" onclick="showHome()">
+            Weitere Cookies entdecken
+          </button>
+        </div>
 
-        <div class="reward-code">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       REWARD
+  ========================== -->
+
+  <section id="rewardScreen" class="screen">
+    <div class="container">
+
+      <div class="reward-card">
+
+        <div class="success-icon">🌍</div>
+
+        <h2>Du hast die Welt entdeckt!</h2>
+
+        <p>
+          Du hast alle sechs BIVORO-Cookies erfolgreich entdeckt.
+          Jetzt wartet deine Belohnung auf dich.
+        </p>
+
+        <div class="discount-code">
           BIVORO10
         </div>
 
-
         <p>
-          <strong>10 % Rabatt</strong> auf deine
-          BIVORO-Bestellung.
+          Dein persönlicher Rabattcode
         </p>
 
-
-        <div class="button-area">
-
-          <button
-            class="primary-button"
-            onclick="copyCode()"
-          >
-            Rabattcode kopieren
+        <div class="button-row">
+          <button class="main-btn" onclick="copyCode()">
+            Code kopieren
           </button>
-
         </div>
-
-
-        <p id="copyMessage"></p>
 
       </div>
 
-    </section>
-
-
-  </main>
-
-
-  <footer>
-    BIVORO Cookie Scan · Schulprojekt
-  </footer>
-
+    </div>
+  </section>
 
 
   <script>
 
     /* =========================================
-       DIE 6 BIVORO-COOKIES
+       COOKIE DATEN
     ========================================== */
 
     const cookies = {
@@ -883,90 +613,109 @@
       greece: {
         name: "Griechenland",
         flag: "🇬🇷",
+        flavor: "Walnuss & Honig",
 
-        description:
-          "Unser griechischer Cookie verbindet Walnüsse und Honig zu einer mediterranen Geschmackskombination.",
+        short:
+          "Griechenland besteht aus rund 6’000 Inseln und kleinen Inselchen. Bewohnt sind davon allerdings nur etwa 227. Das bedeutet: Ein grosser Teil der griechischen Inselwelt ist unbewohnt!",
 
-        facts: [
-          "<strong>Griechenland</strong> liegt im Südosten Europas und ist für seine vielen Inseln und seine lange Geschichte bekannt.",
-          "Die griechische Küche verwendet viele natürliche Zutaten wie Honig, Nüsse, Oliven und Kräuter.",
-          "Honig spielt in der griechischen Küche schon seit langer Zeit eine wichtige Rolle."
-        ]
+        random:
+          "Viele denken bei Griechenland zuerst an Strände und Meer. Doch rund 80 % des Landes bestehen aus Bergen oder Hügeln – Griechenland ist damit eines der gebirgigsten Länder Europas.",
+
+        story:
+          "In der griechischen Mythologie lebten die zwölf olympischen Hauptgötter auf dem Berg Olymp. Zeus galt als ihr Anführer und als Gott des Himmels und des Donners. Die Geschichten über die Götter wurden über Jahrtausende weitergegeben und gehören bis heute zu den bekanntesten Mythen der Welt.",
+
+        appearance:
+          "Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein Stück Walnuss."
       },
-
-
-      morocco: {
-        name: "Marokko",
-        flag: "🇲🇦",
-
-        description:
-          "Unser marokkanischer Cookie verbindet Orangenblüte, Zitrusnoten, Zimt und Mandeln.",
-
-        facts: [
-          "<strong>Marokko</strong> liegt im Nordwesten Afrikas und verbindet arabische, afrikanische und mediterrane Einflüsse.",
-          "Gewürze wie Zimt spielen in der marokkanischen Küche eine wichtige Rolle.",
-          "Orangenblütenwasser wird in verschiedenen traditionellen marokkanischen Speisen verwendet."
-        ]
-      },
-
-
-      philippines: {
-        name: "Philippinen",
-        flag: "🇵🇭",
-
-        description:
-          "Unser philippinischer Cookie bringt den Geschmack von Kokosnuss in die BIVORO-Welt.",
-
-        facts: [
-          "<strong>Die Philippinen</strong> sind ein Inselstaat in Südostasien.",
-          "Kokosnüsse sind auf den Philippinen sehr verbreitet und werden vielseitig verwendet.",
-          "Die philippinische Küche wurde von verschiedenen Kulturen beeinflusst."
-        ]
-      },
-
-
-      japan: {
-        name: "Japan",
-        flag: "🇯🇵",
-
-        description:
-          "Unser japanischer Cookie kombiniert Matcha mit Magermilchpulver.",
-
-        facts: [
-          "<strong>Japan</strong> ist ein Inselstaat in Ostasien und bekannt für seine Verbindung von Tradition und Moderne.",
-          "Matcha ist fein gemahlener grüner Tee und spielt eine wichtige Rolle in der japanischen Teekultur.",
-          "Für Matcha werden die Teeblätter speziell angebaut und verarbeitet."
-        ]
-      },
-
 
       italy: {
         name: "Italien",
         flag: "🇮🇹",
+        flavor: "Espresso & braune Butter",
 
-        description:
-          "Unser italienischer Cookie verbindet Espresso mit aromatischer gebräunter Butter.",
+        short:
+          "Italien ist eines der Länder mit den meisten Vulkanen Europas. Einige davon sind noch aktiv, darunter der Ätna auf Sizilien, einer der aktivsten Vulkane der Welt.",
 
-        facts: [
-          "<strong>Italien</strong> liegt in Südeuropa und ist für seine vielfältige Kultur und Küche bekannt.",
-          "Espresso ist ein wichtiger Bestandteil der italienischen Kaffeekultur.",
-          "Die italienische Küche unterscheidet sich je nach Region und hat viele regionale Spezialitäten."
-        ]
+        random:
+          "Italien hat nicht nur ein Land innerhalb seiner Grenzen, sondern gleich zwei unabhängige Staaten: San Marino und die Vatikanstadt.",
+
+        story:
+          "Kaffee gehört fest zur italienischen Alltagskultur. Der Espresso wird traditionell schnell an der Bar getrunken und ist viel mehr als nur ein Getränk: Für viele Italiener gehört die kurze Kaffeepause einfach zum täglichen Leben. Genau diese Kaffeekultur hat den Espresso weltweit bekannt gemacht.",
+
+        appearance:
+          "Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein dunkles Kaffeebohnen-Element."
       },
 
+      morocco: {
+        name: "Marokko",
+        flag: "🇲🇦",
+        flavor: "Orangenblüte, Zimt & Mandeln",
+
+        short:
+          "Marokko ist eines der wenigen Länder der Welt, das sowohl am Atlantischen Ozean als auch am Mittelmeer liegt. Gleichzeitig reichen die Landschaften vom Meer über das Atlasgebirge bis an die Sahara.",
+
+        random:
+          "In Marokko werden Orangenblüten nicht nur wegen ihres Duftes geschätzt. Das Wasser aus den Blüten wird auch zum Aromatisieren von Speisen und Getränken verwendet – zum Beispiel in Süssigkeiten und Gebäck.",
+
+        story:
+          "Minztee ist in Marokko mehr als ein Getränk. Er gehört zur Gastfreundschaft und wird Gästen traditionell angeboten. Das Einschenken des Tees ist dabei selbst ein Teil der Kultur: Der Tee wird oft aus einiger Höhe in kleine Gläser gegossen.",
+
+        appearance:
+          "Rund und goldbraun. Oben liegen zwei Orangenelemente übereinander beziehungsweise leicht versetzt aufeinander."
+      },
+
+      philippines: {
+        name: "Philippinen",
+        flag: "🇵🇭",
+        flavor: "Kokos",
+
+        short:
+          "Die Philippinen bestehen aus mehr als 7’600 Inseln. Deshalb ist das Land stark vom Meer geprägt – viele Orte sind nur über das Wasser erreichbar.",
+
+        random:
+          "Kokosnüsse spielen auf den Philippinen eine besonders grosse Rolle. Fast jeder Teil der Kokospalme kann verwendet werden – von der Frucht über die Schale bis zu den Fasern.",
+
+        story:
+          "Auf den Philippinen ist die Bayanihan-Tradition ein Symbol für Gemeinschaft und gegenseitige Hilfe. Der Begriff beschreibt die Idee, dass Menschen zusammenkommen und einander unterstützen, besonders wenn jemand Hilfe braucht. So steht Bayanihan bis heute für den Gedanken: Gemeinsam ist vieles möglich.",
+
+        appearance:
+          "Rund und goldbraun, mit einem Zickzack-Muster. Darüber sind Kokosraspeln gestreut."
+      },
+
+      japan: {
+        name: "Japan",
+        flag: "🇯🇵",
+        flavor: "Matcha",
+
+        short:
+          "Japan besteht aus tausenden Inseln und erstreckt sich über eine grosse Nord-Süd-Distanz. Dadurch gibt es im selben Land sehr unterschiedliche Landschaften und Klimazonen – von verschneiten Regionen im Norden bis zu subtropischen Inseln im Süden.",
+
+        random:
+          "Matcha ist kein gewöhnlicher grüner Tee. Für Matcha werden die Teeblätter zu einem sehr feinen Pulver gemahlen – deshalb wird beim Trinken das ganze Teeblatt aufgenommen.",
+
+        story:
+          "Die japanische Teezeremonie, Chanoyu, entwickelte sich über Jahrhunderte zu einer besonderen Form der Gastfreundschaft. Dabei geht es nicht nur um den Tee selbst, sondern auch um Ruhe, Aufmerksamkeit und den bewussten Moment. Matcha spielt dabei eine zentrale Rolle.",
+
+        appearance:
+          "Rund und braun-grünlich, mit einem Zickzack-Muster. Darüber ist Matchapulver gestreut."
+      },
 
       india: {
         name: "Indien",
         flag: "🇮🇳",
+        flavor: "Kardamom & Pistazie",
 
-        description:
-          "Unser indischer Cookie kombiniert aromatischen Kardamom mit Pistazien.",
+        short:
+          "Indien ist sprachlich aussergewöhnlich vielfältig. In der indischen Verfassung sind 22 Sprachen offiziell anerkannt – daneben werden im Alltag noch viele weitere Sprachen und Dialekte gesprochen.",
 
-        facts: [
-          "<strong>Indien</strong> liegt in Südasien und ist eines der bevölkerungsreichsten Länder der Welt.",
-          "Gewürze spielen in vielen Regionen der indischen Küche eine wichtige Rolle.",
-          "Kardamom wird in Indien für Getränke sowie süsse und herzhafte Speisen verwendet."
-        ]
+        random:
+          "Kardamom gehört zu den ältesten Gewürzen der Welt und wird in Indien schon seit sehr langer Zeit verwendet. Die kleinen grünen Kapseln enthalten winzige Samen mit einem intensiven, süsslich-würzigen Aroma.",
+
+        story:
+          "Gewürze haben in Indien seit Jahrhunderten eine wichtige kulturelle Bedeutung. Sie wurden nicht nur zum Würzen von Speisen verwendet, sondern spielten auch in traditionellen Getränken, Festen und im Alltag eine Rolle. Dadurch entstand eine Küche, in der Gewürze wie Kardamom, Zimt und Nelken ganze Geschmackswelten prägen.",
+
+        appearance:
+          "Rund und goldbraun, mit einem Zickzack- beziehungsweise Wellenmuster aus eher runden Wellen. Darüber sind Pistazienstückchen gestreut."
       }
 
     };
@@ -976,47 +725,12 @@
        VARIABLEN
     ========================================== */
 
-    let discovered = [];
-
     let selectedCookie = null;
-
     let cameraStream = null;
 
-
-    /* =========================================
-       FORTSCHRITT SPEICHERN
-    ========================================== */
-
-    function loadProgress() {
-
-      const saved =
-        localStorage.getItem("bivoroDiscovered");
-
-      if (saved) {
-
-        try {
-
-          discovered = JSON.parse(saved);
-
-        } catch {
-
-          discovered = [];
-
-        }
-
-      }
-
-    }
-
-
-    function saveProgress() {
-
-      localStorage.setItem(
-        "bivoroDiscovered",
-        JSON.stringify(discovered)
-      );
-
-    }
+    let discovered = JSON.parse(
+      localStorage.getItem("bivoroDiscovered") || "[]"
+    );
 
 
     /* =========================================
@@ -1025,72 +739,42 @@
 
     function createCookieGrid() {
 
-      const grid =
-        document.getElementById("cookieGrid");
+      const grid = document.getElementById("cookieGrid");
 
       grid.innerHTML = "";
 
+      Object.entries(cookies).forEach(([key, cookie]) => {
 
-      Object.keys(cookies).forEach(function(key) {
+        const completed = discovered.includes(key);
 
-        const cookie = cookies[key];
-
-        const completed =
-          discovered.includes(key);
-
-
-        const card =
-          document.createElement("div");
-
+        const card = document.createElement("div");
 
         card.className =
-          "country-card" +
-          (completed ? " completed" : "");
-
-
-        card.onclick = function() {
-
-          selectCookie(key);
-
-        };
-
+          "cookie-card" + (completed ? " completed" : "");
 
         card.innerHTML = `
+          <div class="flag">${cookie.flag}</div>
 
-          <div class="country-top">
+          <h3>${cookie.name}</h3>
 
-            <span class="flag">
-              ${cookie.flag}
-            </span>
-
-            <span class="check">
-              ${completed ? "✓" : ""}
-            </span>
-
+          <div class="flavor">
+            ${cookie.flavor}
           </div>
 
-          <h3>
-            ${cookie.name}
-          </h3>
-
-          <p>
-            ${
-              completed
-                ? "✓ Bereits entdeckt"
-                : "Fakten entdecken →"
-            }
-          </p>
-
+          ${
+            completed
+              ? `<div class="completed-label">✓ Bereits entdeckt</div>`
+              : `<button class="choose-btn" onclick="selectCookie('${key}')">
+                   Entdecken
+                 </button>`
+          }
         `;
-
 
         grid.appendChild(card);
 
       });
 
-
       updateProgress();
-
     }
 
 
@@ -1100,24 +784,13 @@
 
     function updateProgress() {
 
-      const amount =
-        discovered.length;
+      const count = discovered.length;
 
-      const percentage =
-        (amount / 6) * 100;
+      document.getElementById("progressText").textContent =
+        `Entdeckt: ${count} / 6 Cookies`;
 
-
-      document.getElementById(
-        "progressText"
-      ).textContent =
-        amount + " / 6 Cookies entdeckt";
-
-
-      document.getElementById(
-        "progressFill"
-      ).style.width =
-        percentage + "%";
-
+      document.getElementById("progressFill").style.width =
+        `${(count / 6) * 100}%`;
     }
 
 
@@ -1129,50 +802,24 @@
 
       selectedCookie = key;
 
-      const cookie =
-        cookies[key];
+      const cookie = cookies[key];
 
-
-      document.getElementById(
-        "factsFlag"
-      ).textContent =
+      document.getElementById("factsFlag").textContent =
         cookie.flag;
 
-
-      document.getElementById(
-        "factsTitle"
-      ).textContent =
+      document.getElementById("factsCountry").textContent =
         cookie.name;
 
+      document.getElementById("factShort").textContent =
+        cookie.short;
 
-      let html = "";
+      document.getElementById("factRandom").textContent =
+        cookie.random;
 
-
-      cookie.facts.forEach(function(fact) {
-
-        html += `
-          <div class="fact">
-            ${fact}
-          </div>
-        `;
-
-      });
-
-
-      document.getElementById(
-        "factsContent"
-      ).innerHTML =
-        html;
-
-
-      document.getElementById(
-        "cookieDescription"
-      ).textContent =
-        cookie.description;
-
+      document.getElementById("factStory").textContent =
+        cookie.story;
 
       showScreen("factsScreen");
-
     }
 
 
@@ -1186,31 +833,27 @@
         return;
       }
 
+      const cookie = cookies[selectedCookie];
 
-      const cookie =
-        cookies[selectedCookie];
-
-
-      document.getElementById(
-        "scannerFlag"
-      ).textContent =
+      document.getElementById("scannerFlag").textContent =
         cookie.flag;
 
+      document.getElementById("scannerCountry").textContent =
+        cookie.name;
 
-      document.getElementById(
-        "scannerTitle"
-      ).textContent =
-        cookie.name + " scannen";
+      document.getElementById("cookieAppearance").textContent =
+        cookie.appearance;
 
+      document.getElementById("cameraStatus").textContent =
+        "Kamera gestoppt.";
 
-      document.getElementById(
-        "scanStatus"
-      ).textContent =
-        "Bereit zum Scannen.";
+      document.getElementById("cameraPlaceholder").style.display =
+        "block";
 
+      document.getElementById("camera").style.display =
+        "none";
 
       showScreen("scannerScreen");
-
     }
 
 
@@ -1220,82 +863,38 @@
 
     async function startCamera() {
 
-      const status =
-        document.getElementById("scanStatus");
-
-      const video =
-        document.getElementById("camera");
-
-      const message =
-        document.getElementById("cameraMessage");
-
-      const frame =
-        document.getElementById("cameraFrame");
-
-
-      if (
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-      ) {
-
-        status.textContent =
-          "Dein Browser unterstützt den Kamerazugriff nicht.";
-
-        return;
-
-      }
-
+      const video = document.getElementById("camera");
+      const placeholder = document.getElementById("cameraPlaceholder");
+      const status = document.getElementById("cameraStatus");
 
       try {
 
-        stopCamera();
-
-
         cameraStream =
           await navigator.mediaDevices.getUserMedia({
-
             video: {
               facingMode: {
                 ideal: "environment"
               }
             },
-
             audio: false
-
           });
 
+        video.srcObject = cameraStream;
 
-        video.srcObject =
-          cameraStream;
-
-
-        video.style.display =
-          "block";
-
-
-        message.style.display =
-          "none";
-
-
-        frame.classList.add("active");
-
+        video.style.display = "block";
+        placeholder.style.display = "none";
 
         status.textContent =
-          "Kamera läuft. Halte deinen Cookie in den Rahmen.";
+          "Kamera läuft. Halte deinen Cookie in den markierten Bereich.";
 
-      }
-
-
-      catch (error) {
+      } catch (error) {
 
         console.error(error);
 
-
         status.textContent =
-          "Kamerazugriff nicht möglich. Bitte erlaube den Zugriff auf die Kamera.";
+          "Die Kamera konnte nicht gestartet werden. Bitte erlaube den Kamerazugriff.";
 
       }
-
     }
 
 
@@ -1307,59 +906,31 @@
 
       if (cameraStream) {
 
-        cameraStream
-          .getTracks()
-          .forEach(function(track) {
-
-            track.stop();
-
-          });
+        cameraStream.getTracks().forEach(track => {
+          track.stop();
+        });
 
         cameraStream = null;
-
       }
 
+      const video = document.getElementById("camera");
 
-      const video =
-        document.getElementById("camera");
+      video.srcObject = null;
+      video.style.display = "none";
 
-      if (video) {
+      document.getElementById("cameraPlaceholder").style.display =
+        "block";
 
-        video.srcObject = null;
-
-        video.style.display = "none";
-
-      }
-
-
-      const message =
-        document.getElementById("cameraMessage");
-
-      if (message) {
-
-        message.style.display = "block";
-
-      }
-
-
-      const frame =
-        document.getElementById("cameraFrame");
-
-      if (frame) {
-
-        frame.classList.remove("active");
-
-      }
-
+      document.getElementById("cameraStatus").textContent =
+        "Kamera gestoppt.";
     }
 
 
     /* =========================================
-       COOKIE ERFOLGREICH ERKANNT
+       COOKIE ERKANNT
        
-       DIESE FUNKTION IST DIE STELLE,
-       AN DER SPÄTER DIE ECHTE BILD-
-       ERKENNUNG ANGESCHLOSSEN WIRD.
+       Diese Funktion wird später von der
+       echten Bilderkennung aufgerufen.
     ========================================== */
 
     function cookieRecognized() {
@@ -1368,95 +939,66 @@
         return;
       }
 
-
       if (!discovered.includes(selectedCookie)) {
 
         discovered.push(selectedCookie);
 
-        saveProgress();
-
+        localStorage.setItem(
+          "bivoroDiscovered",
+          JSON.stringify(discovered)
+        );
       }
-
 
       stopCamera();
 
+      const cookie = cookies[selectedCookie];
 
-      const cookie =
-        cookies[selectedCookie];
+      document.getElementById("successTitle").textContent =
+        `${cookie.flag} ${cookie.name} entdeckt!`;
 
-
-      document.getElementById(
-        "successTitle"
-      ).textContent =
-        cookie.flag +
-        " " +
-        cookie.name +
-        " entdeckt!";
-
-
-      document.getElementById(
-        "successText"
-      ).textContent =
-        "Der " +
-        cookie.name +
-        "-Cookie wurde erfolgreich erkannt.";
-
+      document.getElementById("successText").textContent =
+        `Der ${cookie.name}-Cookie wurde erfolgreich erkannt.`;
 
       showScreen("successScreen");
-
     }
 
 
     /* =========================================
-       SEITE WECHSELN
+       SCREEN WECHSELN
     ========================================== */
 
     function showScreen(screenId) {
 
-      document
-        .querySelectorAll(".screen")
-        .forEach(function(screen) {
+      stopCamera();
 
-          screen.classList.remove("active");
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
 
-        });
-
-
-      document
-        .getElementById(screenId)
-        .classList.add("active");
-
+      document.getElementById(screenId).classList.add("active");
 
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
-
     }
 
 
     /* =========================================
-       ZUR ÜBERSICHT
+       ZURÜCK ZUR STARTSEITE
     ========================================== */
 
     function showHome() {
 
-      stopCamera();
+      selectedCookie = null;
 
       createCookieGrid();
 
-
       if (discovered.length === 6) {
-
         showScreen("rewardScreen");
-
-        return;
-
+      } else {
+        showScreen("homeScreen");
       }
-
-
-      showScreen("homeScreen");
-
     }
 
 
@@ -1464,32 +1006,11 @@
        RABATTCODE KOPIEREN
     ========================================== */
 
-    async function copyCode() {
+    function copyCode() {
 
-      const code =
-        "BIVORO10";
+      navigator.clipboard.writeText("BIVORO10");
 
-
-      try {
-
-        await navigator.clipboard.writeText(code);
-
-        document.getElementById(
-          "copyMessage"
-        ).textContent =
-          "✓ Rabattcode kopiert!";
-
-      }
-
-      catch {
-
-        document.getElementById(
-          "copyMessage"
-        ).textContent =
-          "Code: " + code;
-
-      }
-
+      alert("Der Rabattcode BIVORO10 wurde kopiert!");
     }
 
 
@@ -1497,12 +1018,9 @@
        START
     ========================================== */
 
-    loadProgress();
-
     createCookieGrid();
 
   </script>
 
 </body>
 </html>
-    
