@@ -526,21 +526,57 @@
     </div>
   </section>
 
-  <!-- RABATTCODE -->
+ <!-- RABATTCODE UND GOOGLE-FORMULAR -->
   <section id="rewardScreen" class="screen">
     <div class="container">
       <div class="reward-card">
+
         <div class="success-icon">🌍</div>
+
         <h2>Du hast die Welt entdeckt!</h2>
-        <p>Du hast alle sechs BIVORO-Cookies erfolgreich entdeckt. Deine Belohnung wartet auf dich.</p>
-        <div class="discount-code">BIVORO10</div>
-        <p>Dein Rabattcode</p>
+
+        <p>
+          Du hast alle sechs BIVORO-Cookies erfolgreich entdeckt.
+          Herzlichen Glückwunsch!
+        </p>
+
+        <h3>Fordere deinen persönlichen Rabatt an</h3>
+
+        <p>
+          Fülle das Formular aus. Wir prüfen deine Angaben und
+          senden dir deinen persönlichen Erstbestellungs-Rabattcode
+          per E-Mail.
+        </p>
+
+        <div style="width:100%; margin-top:20px;">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSdLWtwgwqOPT8OWCmO1_INNTb2bqXU1uXFAsiKwoYMicPp43Q/viewform?embedded=true"
+            title="BIVORO Cookie-Reisepass"
+            width="100%"
+            height="1100"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            style="border:0; max-width:100%;"
+          >
+            Formular wird geladen …
+          </iframe>
+        </div>
+
+        <p class="small-note">
+          Nach deiner Anfrage prüfen wir deine Angaben und
+          senden dir deinen persönlichen Rabattcode per E-Mail.
+        </p>
 
         <div class="button-row">
-          <button class="main-btn" onclick="copyCode()">Code kopieren</button>
-          <button class="secondary-btn" onclick="showHome()">Zur Übersicht</button>
+          <button
+            class="secondary-btn"
+            onclick="showScreen('homeScreen')"
+          >
+            Zur Cookie-Übersicht
+          </button>
         </div>
-        <p class="small-note">Bitte prüfe, ob dieser Rabattcode deinem tatsächlich eingerichteten Angebot entspricht.</p>
+
       </div>
     </div>
   </section>
