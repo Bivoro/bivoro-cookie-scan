@@ -1,445 +1,1001 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BIVORO – Cookie Scan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;600;700&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#f9e2d5;color:#333;font-family:Mulish,sans-serif}
-h1,h2,h3{font-family:"Cormorant SC",serif;color:#8B0000}
-button{font:700 14px Mulish,sans-serif;cursor:pointer}
-button:disabled{opacity:.5}
-.screen{display:none;min-height:100vh;padding:25px 14px 40px}
-.screen.active{display:block}
-.container{max-width:850px;margin:auto}
-.logo{text-align:center;margin:0}
-.logo h1{font-size:43px;letter-spacing:2px;margin:0}
-.subtitle{text-align:center;color:#555;margin:4px 0 25px}
-.progress-box,.cookie-card,.facts-card,.scanner-card,.success-card,.reward-card{background:#ffffffc2;border-radius:22px;box-shadow:0 4px 16px #0000000f}
-.progress-box{padding:16px;margin-bottom:25px}
-.progress-text{text-align:center;font-weight:700;margin-bottom:10px}
-.progress-bar{height:10px;background:#ead0c2;border-radius:20px;overflow:hidden}
-.progress-fill{height:100%;width:0;background:#8B0000;transition:width .3s}
-.cookie-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.cookie-card{padding:20px 14px;text-align:center;border:2px solid transparent}
-.cookie-card.completed{border-color:#8B0000;background:#8b000012}
-.flag{font-size:38px;margin-bottom:5px}
-.cookie-card h3{font-size:23px;margin:0 0 5px}
-.flavor{font-size:14px;color:#666;margin-bottom:13px}
-.completed-label{font-size:13px;font-weight:700;color:#8B0000;margin:8px 0}
-.choose-btn,.main-btn,.secondary-btn{border-radius:30px;padding:12px 18px}
-.choose-btn,.main-btn{border:0;background:#8B0000;color:white}
-.secondary-btn{border:2px solid #8B0000;background:transparent;color:#8B0000}
-.facts-card{padding:27px 23px}
-.country-title{text-align:center;margin-bottom:26px}
-.country-title .flag{font-size:50px}
-.country-title h2{font-size:36px;margin:0}
-.fact-section{margin-bottom:25px}
-.fact-section h3{font-size:24px;margin-bottom:8px}
-.fact-section p{line-height:1.65;font-size:16px;margin:0}
-.button-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:23px}
-.scanner-card{padding:24px;text-align:center}
-.scanner-card h2{font-size:34px;margin-bottom:5px}
-.scanner-card p{line-height:1.55}
-.camera-container{position:relative;width:100%;max-width:550px;min-height:260px;margin:20px auto;background:#222;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-video{width:100%;display:block}
-.camera-placeholder{color:white;padding:25px;text-align:center}
-.scan-frame{position:absolute;width:72%;height:62%;border:3px solid white;border-radius:22px;pointer-events:none}
-.camera-status{font-size:14px;margin-top:12px;line-height:1.6;white-space:pre-line}
-.cookie-description,.result-box,.help-box{background:#f9e2d5;border-radius:15px;padding:14px;margin-top:16px;text-align:left;line-height:1.6}
-.cookie-description strong,.help-box strong{color:#8B0000}
-.help-box h3{font-size:22px;margin:0 0 8px}
-.help-box p{margin:0 0 8px}
-.help-box ul{margin:8px 0 0;padding-left:22px}
-.result-box{margin-top:12px}
-.success-card,.reward-card{max-width:600px;margin:45px auto 0;padding:32px 22px;text-align:center}
-.success-icon{font-size:55px}
-.success-card h2,.reward-card h2{font-size:36px}
-.discount-code{background:#f9e2d5;border:2px dashed #8B0000;color:#8B0000;border-radius:15px;padding:16px;font-size:25px;font-weight:700;letter-spacing:2px;margin:20px 0}
-.small-note{font-size:13px;color:#666;line-height:1.6}
-@media(max-width:600px){
-.screen{padding:22px 13px 35px}
-.logo h1{font-size:36px}
-.cookie-grid{grid-template-columns:1fr}
-.facts-card{padding:22px 17px}
-.country-title h2{font-size:32px}
-.fact-section h3{font-size:22px}
-.fact-section p{font-size:15px}
-.scanner-card{padding:18px 13px}
-.camera-container{min-height:230px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F9E2D5">
+  <title>BIVORO – Cookie Scan</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;600;700&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #F9E2D5;
+      color: #333333;
+      font-family: "Mulish", sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: "Cormorant SC", serif;
+      color: #8B0000;
+    }
+
+    button {
+      font: 700 14px "Mulish", sans-serif;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 25px 14px 40px;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .logo {
+      text-align: center;
+      margin: 0;
+    }
+
+    .logo h1 {
+      font-size: 43px;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555555;
+      margin: 4px 0 25px;
+    }
+
+    /* FORTSCHRITT UND COOKIE-ÜBERSICHT */
+
+    .progress-box,
+    .cookie-card,
+    .facts-card,
+    .scanner-card,
+    .success-card,
+    .reward-card {
+      background: rgba(255, 255, 255, 0.76);
+      border-radius: 22px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .progress-box {
+      padding: 16px;
+      margin-bottom: 25px;
+    }
+
+    .progress-text {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: #EAD0C2;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: #8B0000;
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .cookie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .cookie-card {
+      padding: 20px 14px;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cookie-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .cookie-card.completed {
+      border-color: #8B0000;
+      background: rgba(139, 0, 0, 0.07);
+    }
+
+    .flag {
+      font-size: 38px;
+      margin-bottom: 5px;
+    }
+
+    .cookie-card h3 {
+      font-size: 23px;
+      margin: 0 0 5px;
+    }
+
+    .flavor {
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 13px;
+    }
+
+    .completed-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8B0000;
+      margin: 8px 0;
+    }
+
+    .choose-btn,
+    .main-btn,
+    .secondary-btn {
+      border-radius: 30px;
+      padding: 12px 18px;
+    }
+
+    .choose-btn,
+    .main-btn {
+      border: 0;
+      background: #8B0000;
+      color: #FFFFFF;
+    }
+
+    .secondary-btn {
+      border: 2px solid #8B0000;
+      background: transparent;
+      color: #8B0000;
+    }
+
+    /* FAKTEN */
+
+    .facts-card {
+      padding: 27px 23px;
+    }
+
+    .country-title {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .country-title .flag {
+      font-size: 50px;
+    }
+
+    .country-title h2 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .fact-section {
+      margin-bottom: 25px;
+    }
+
+    .fact-section h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .fact-section p {
+      line-height: 1.65;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* BUTTONS */
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 23px;
+    }
+
+    /* SCANNER */
+
+    .scanner-card {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .scanner-card h2 {
+      font-size: 34px;
+      margin-bottom: 5px;
+    }
+
+    .scanner-card > p {
+      line-height: 1.55;
+    }
+
+    .camera-container {
+      position: relative;
+      width: 100%;
+      max-width: 550px;
+      min-height: 260px;
+      margin: 20px auto;
+      background: #222222;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+    }
+
+    .camera-placeholder {
+      color: #FFFFFF;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .scan-frame {
+      position: absolute;
+      width: 72%;
+      height: 62%;
+      border: 3px solid #FFFFFF;
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .camera-status {
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .cookie-description,
+    .result-box,
+    .help-box {
+      background: #F9E2D5;
+      border-radius: 15px;
+      padding: 14px;
+      margin-top: 16px;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .cookie-description strong,
+    .help-box strong {
+      color: #8B0000;
+    }
+
+    .help-box h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+
+    .help-box p {
+      margin: 0 0 8px;
+    }
+
+    .help-box ul {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .help-box li + li {
+      margin-top: 5px;
+    }
+
+    .result-box {
+      margin-top: 12px;
+    }
+
+    /* ERFOLG UND RABATTCODE */
+
+    .success-card,
+    .reward-card {
+      max-width: 600px;
+      margin: 45px auto 0;
+      padding: 32px 22px;
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 55px;
+    }
+
+    .success-card h2,
+    .reward-card h2 {
+      font-size: 36px;
+    }
+
+    .discount-code {
+      background: #F9E2D5;
+      border: 2px dashed #8B0000;
+      color: #8B0000;
+      border-radius: 15px;
+      padding: 16px;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin: 20px 0;
+    }
+
+    .small-note {
+      font-size: 13px;
+      color: #666666;
+      line-height: 1.6;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      .screen {
+        padding: 22px 13px 35px;
+      }
+
+      .logo h1 {
+        font-size: 36px;
+      }
+
+      .cookie-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .facts-card {
+        padding: 22px 17px;
+      }
+
+      .country-title h2 {
+        font-size: 32px;
+      }
+
+      .fact-section h3 {
+        font-size: 22px;
+      }
+
+      .fact-section p {
+        font-size: 15px;
+      }
+
+      .scanner-card {
+        padding: 18px 13px;
+      }
+
+      .camera-container {
+        min-height: 230px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<section id="homeScreen" class="screen active">
-<div class="container">
-<div class="logo"><h1>BIVORO</h1></div>
-<div class="subtitle">Die Welt kulinarisch bereisen – ohne zu fliegen</div>
-<div class="progress-box">
-<div id="progressText" class="progress-text">Entdeckt: 0 / 6 Cookies</div>
-<div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
-</div>
-<h2 style="text-align:center;font-size:32px">Entdecke die Welt</h2>
-<p style="text-align:center;margin-bottom:25px">Entdecke zuerst die Geschichte hinter jedem Geschmack und scanne danach deinen passenden Cookie.</p>
-<div id="cookieGrid" class="cookie-grid"></div>
-</div>
-</section>
+  <!-- START / ÜBERSICHT -->
+  <section id="homeScreen" class="screen active">
+    <div class="container">
+      <div class="logo">
+        <h1>BIVORO</h1>
+      </div>
 
-<section id="factsScreen" class="screen">
-<div class="container"><div class="facts-card">
-<div class="country-title"><div id="factsFlag" class="flag"></div><h2 id="factsCountry"></h2></div>
-<div class="fact-section"><h3>Das Land in Kürze</h3><p id="factShort"></p></div>
-<div class="fact-section"><h3>Schon gewusst?</h3><p id="factRandom"></p></div>
-<div class="fact-section"><h3>Eine Geschichte, die bleibt</h3><p id="factStory"></p></div>
-<div class="button-row">
-<button class="secondary-btn" onclick="showHome()">Zurück</button>
-<button class="main-btn" onclick="openScanner()">Weiter zum Scan</button>
-</div>
-</div></div>
-</section>
+      <div class="subtitle">Die Welt kulinarisch bereisen – ohne zu fliegen</div>
 
-<section id="scannerScreen" class="screen">
-<div class="container"><div class="scanner-card">
-<div id="scannerFlag" class="flag"></div>
-<h2 id="scannerCountry"></h2>
-<p>Halte den passenden BIVORO-Cookie vor die Kamera. Das Modell prüft, ob es der richtige ist.</p>
-<div class="cookie-description"><strong>Woran erkennst du ihn?</strong><br><span id="cookieAppearance"></span></div>
-<div class="camera-container">
-<video id="camera" autoplay playsinline muted style="display:none"></video>
-<div id="cameraPlaceholder" class="camera-placeholder">Die Kamera ist noch nicht gestartet.</div>
-<div class="scan-frame"></div>
-</div>
-<div id="cameraStatus" class="camera-status" aria-live="polite">Bereit zum Scannen.</div>
-<div id="predictionResult" class="result-box" aria-live="polite">Starte die Kamera, um deinen Cookie zu prüfen.</div>
+      <div class="progress-box">
+        <div id="progressText" class="progress-text">Entdeckt: 0 / 6 Cookies</div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
 
-<div class="help-box">
-<h3>Wird dein Cookie nicht erkannt?</h3>
-<p>Keine Sorge! Probiere diese Tipps:</p>
-<ul>
-<li>Halte den Cookie etwas näher an die Kamera.</li>
-<li>Drehe ihn langsam, damit die Kamera ihn aus verschiedenen Blickwinkeln sehen kann.</li>
-<li>Achte auf genügend Licht und einen ruhigen Hintergrund.</li>
-<li>Halte den ganzen Cookie innerhalb des markierten Bereichs und möglichst ruhig.</li>
-</ul>
-</div>
+      <h2 style="text-align:center;font-size:32px">Entdecke die Welt</h2>
+      <p style="text-align:center;margin-bottom:25px">
+        Entdecke zuerst die Geschichte hinter jedem Geschmack und scanne danach deinen passenden Cookie.
+      </p>
 
-<div class="button-row">
-<button id="startButton" class="main-btn" onclick="startCamera()">Kamera starten</button>
-<button id="stopButton" class="secondary-btn" onclick="stopCamera()">Kamera stoppen</button>
-</div>
-<div class="button-row">
-<button class="secondary-btn" onclick="showScreen('factsScreen')">Zurück zu den Fakten</button>
-<button class="secondary-btn" onclick="showHome()">Zur Übersicht</button>
-</div>
-</div></div>
-</section>
+      <div id="cookieGrid" class="cookie-grid"></div>
+    </div>
+  </section>
 
-<section id="successScreen" class="screen">
-<div class="container"><div class="success-card">
-<div class="success-icon">✓</div>
-<h2 id="successTitle">Cookie entdeckt!</h2>
-<p id="successText"></p>
-<div class="button-row"><button class="main-btn" onclick="showHome()">Weitere Cookies entdecken</button></div>
-</div></div>
-</section>
+  <!-- FAKTEN -->
+  <section id="factsScreen" class="screen">
+    <div class="container">
+      <div class="facts-card">
+        <div class="country-title">
+          <div id="factsFlag" class="flag"></div>
+          <h2 id="factsCountry"></h2>
+        </div>
 
-<section id="rewardScreen" class="screen">
-<div class="container"><div class="reward-card">
-<div class="success-icon">🌍</div>
-<h2>Du hast die Welt entdeckt!</h2>
-<p>Du hast alle sechs BIVORO-Cookies erfolgreich entdeckt. Deine Belohnung wartet auf dich.</p>
-<div class="discount-code">BIVORO10</div>
-<p>Dein Rabattcode</p>
-<div class="button-row">
-<button class="main-btn" onclick="copyCode()">Code kopieren</button>
-<button class="secondary-btn" onclick="showHome()">Zur Übersicht</button>
-</div>
-<p class="small-note">Bitte prüfe, ob dieser Rabattcode deinem tatsächlich eingerichteten Angebot entspricht.</p>
-</div></div>
-</section>
+        <div class="fact-section">
+          <h3>Das Land in Kürze</h3>
+          <p id="factShort"></p>
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
-<script>
-"use strict";
+        <div class="fact-section">
+          <h3>Schon gewusst?</h3>
+          <p id="factRandom"></p>
+        </div>
 
-const MODEL_URL="./model.json";
-const METADATA_URL="./metadata.json";
-const MIN_CONFIDENCE=0.85;
-const REQUIRED_MATCHES=3;
+        <div class="fact-section">
+          <h3>Eine Geschichte, die bleibt</h3>
+          <p id="factStory"></p>
+        </div>
 
-const cookies={
-greece:{
-name:"Griechenland",flag:"🇬🇷",flavor:"Walnuss & Honig",
-short:"Griechenland besteht aus rund 6’000 Inseln und kleinen Inselchen. Bewohnt sind davon allerdings nur etwa 227.",
-random:"Viele denken bei Griechenland zuerst an Strände und Meer. Doch rund 80 % des Landes bestehen aus Bergen oder Hügeln.",
-story:"In der griechischen Mythologie lebten die zwölf olympischen Hauptgötter auf dem Berg Olymp. Zeus galt als ihr Anführer und als Gott des Himmels und des Donners.",
-appearance:"Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein Stück Walnuss."
-},
-italy:{
-name:"Italien",flag:"🇮🇹",flavor:"Espresso & braune Butter",
-short:"Italien ist eines der Länder mit den meisten Vulkanen Europas. Zu ihnen gehört der Ätna auf Sizilien.",
-random:"Zwei unabhängige Staaten liegen innerhalb Italiens: San Marino und die Vatikanstadt.",
-story:"Kaffee gehört fest zur italienischen Alltagskultur. Espresso wird traditionell oft an der Bar getrunken.",
-appearance:"Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein dunkles Kaffeebohnen-Element."
-},
-morocco:{
-name:"Marokko",flag:"🇲🇦",flavor:"Orangenblüte, Zimt & Mandeln",
-short:"Marokko liegt am Atlantischen Ozean und am Mittelmeer. Seine Landschaft reicht vom Meer über das Atlasgebirge bis zur Sahara.",
-random:"Orangenblütenwasser wird in Marokko zum Aromatisieren von Süssigkeiten und Getränken verwendet.",
-story:"Minztee ist ein wichtiger Teil der marokkanischen Gastfreundschaft. Das Einschenken des Tees aus einiger Höhe gehört oft zum Ritual.",
-appearance:"Rund und goldbraun. Oben liegen zwei Orangenelemente übereinander beziehungsweise leicht versetzt aufeinander."
-},
-philippines:{
-name:"Philippinen",flag:"🇵🇭",flavor:"Kokos",
-short:"Die Philippinen bestehen aus mehr als 7’600 Inseln. Deshalb ist das Land stark vom Meer geprägt.",
-random:"Kokosnüsse spielen eine grosse Rolle. Viele Teile der Kokospalme lassen sich nutzen.",
-story:"Bayanihan ist eine philippinische Tradition, die Gemeinschaft und gegenseitige Hilfe symbolisiert.",
-appearance:"Rund und goldbraun, mit einem Zickzack-Muster. Darüber sind Kokosraspeln gestreut."
-},
-japan:{
-name:"Japan",flag:"🇯🇵",flavor:"Matcha",
-short:"Japan besteht aus vielen Inseln und erstreckt sich über eine grosse Nord-Süd-Distanz. Dadurch gibt es unterschiedliche Landschaften und Klimazonen.",
-random:"Matcha wird aus fein gemahlenen Grünteeblättern hergestellt. Beim Trinken nimmt man deshalb das ganze Blatt auf.",
-story:"Die japanische Teezeremonie entwickelte sich über Jahrhunderte zu einer besonderen Form der Gastfreundschaft. Ruhe und Aufmerksamkeit sind dabei wichtig.",
-appearance:"Rund und braun-grünlich, mit einem Zickzack-Muster. Darüber ist Matchapulver gestreut."
-},
-india:{
-name:"Indien",flag:"🇮🇳",flavor:"Kardamom & Pistazie",
-short:"In der indischen Verfassung sind 22 Sprachen offiziell anerkannt. Im Alltag werden viele weitere Sprachen und Dialekte gesprochen.",
-random:"Kardamom ist ein aromatisches Gewürz. Die kleinen Kapseln enthalten Samen mit einem intensiv süsslich-würzigen Aroma.",
-story:"Gewürze haben in Indien seit Jahrhunderten eine wichtige kulturelle Bedeutung und prägen viele regionale Küchentraditionen.",
-appearance:"Rund und goldbraun, mit einem Zickzack- beziehungsweise Wellenmuster. Darüber sind Pistazienstückchen gestreut."
-}
-};
+        <div class="button-row">
+          <button class="secondary-btn" onclick="showHome()">Zurück</button>
+          <button class="main-btn" onclick="openScanner()">Weiter zum Scan</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-let selectedCookie=null,cameraStream=null,model=null,scanning=false;
-let predictionTimer=null,modelLoading=null,lastPrediction="";
-let consecutiveMatches=0;
+  <!-- SCANNER -->
+  <section id="scannerScreen" class="screen">
+    <div class="container">
+      <div class="scanner-card">
+        <div id="scannerFlag" class="flag"></div>
+        <h2 id="scannerCountry"></h2>
 
-function loadDiscovered(){
-try{
-const saved=JSON.parse(localStorage.getItem("bivoroDiscovered")||"[]");
-return Array.isArray(saved)?saved.filter(key=>Object.hasOwn(cookies,key)):[];
-}catch(e){return []}
-}
-let discovered=loadDiscovered();
+        <p>
+          Halte den passenden BIVORO-Cookie vor die Kamera. Das Modell prüft, ob es der richtige ist.
+        </p>
 
-function saveDiscovered(){
-try{localStorage.setItem("bivoroDiscovered",JSON.stringify(discovered))}
-catch(e){console.warn("Fortschritt konnte nicht gespeichert werden.",e)}
-}
+        <div class="cookie-description">
+          <strong>Woran erkennst du ihn?</strong><br>
+          <span id="cookieAppearance"></span>
+        </div>
 
-function updateProgress(){
-document.getElementById("progressText").textContent=`Entdeckt: ${discovered.length} / 6 Cookies`;
-document.getElementById("progressFill").style.width=`${discovered.length/6*100}%`;
-}
+        <div class="camera-container">
+          <video id="camera" autoplay playsinline muted style="display:none"></video>
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            Die Kamera ist noch nicht gestartet.
+          </div>
+          <div class="scan-frame"></div>
+        </div>
 
-function createCookieGrid(){
-const grid=document.getElementById("cookieGrid");
-grid.replaceChildren();
-Object.entries(cookies).forEach(([key,cookie])=>{
-const card=document.createElement("div");
-card.className="cookie-card"+(discovered.includes(key)?" completed":"");
-const flag=document.createElement("div");
-flag.className="flag";flag.textContent=cookie.flag;
-const title=document.createElement("h3");title.textContent=cookie.name;
-const flavor=document.createElement("div");
-flavor.className="flavor";flavor.textContent=cookie.flavor;
-card.append(flag,title,flavor);
-if(discovered.includes(key)){
-const label=document.createElement("div");
-label.className="completed-label";label.textContent="✓ Bereits entdeckt";
-card.appendChild(label);
-}
-const button=document.createElement("button");
-button.className="choose-btn";
-button.textContent=discovered.includes(key)?"Nochmals ansehen":"Entdecken";
-button.onclick=()=>selectCookie(key);
-card.appendChild(button);grid.appendChild(card);
-});
-updateProgress();
-}
+        <div id="cameraStatus" class="camera-status" aria-live="polite">
+          Bereit zum Scannen.
+        </div>
 
-function showScreen(id){
-stopCamera();
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-window.scrollTo({top:0,behavior:"smooth"});
-}
+        <div id="predictionResult" class="result-box" aria-live="polite">
+          Starte die Kamera, um deinen Cookie zu prüfen.
+        </div>
 
-function selectCookie(key){
-selectedCookie=key;
-const c=cookies[key];
-document.getElementById("factsFlag").textContent=c.flag;
-document.getElementById("factsCountry").textContent=c.name;
-document.getElementById("factShort").textContent=c.short;
-document.getElementById("factRandom").textContent=c.random;
-document.getElementById("factStory").textContent=c.story;
-showScreen("factsScreen");
-}
+        <div class="help-box">
+          <h3>Wird dein Cookie nicht erkannt?</h3>
+          <p>Keine Sorge! Probiere diese Tipps:</p>
+          <ul>
+            <li>Halte den Cookie etwas näher an die Kamera, wenn er zu klein oder unscharf wirkt.</li>
+            <li>Halte ihn etwas weiter weg, wenn er nicht vollständig in den markierten Bereich passt.</li>
+            <li>Drehe den Cookie langsam, damit die Kamera ihn aus verschiedenen Blickwinkeln sehen kann.</li>
+            <li>Achte auf genügend Licht und einen ruhigen Hintergrund.</li>
+            <li>Halte den ganzen Cookie innerhalb des markierten Bereichs und möglichst ruhig.</li>
+          </ul>
+        </div>
 
-function openScanner(){
-if(!selectedCookie)return;
-const c=cookies[selectedCookie];
-document.getElementById("scannerFlag").textContent=c.flag;
-document.getElementById("scannerCountry").textContent=c.name;
-document.getElementById("cookieAppearance").textContent=c.appearance;
-document.getElementById("predictionResult").textContent="Starte die Kamera, um deinen Cookie zu prüfen.";
-document.getElementById("cameraStatus").textContent="Bereit zum Scannen.";
-showScreen("scannerScreen");
-}
+        <div class="button-row">
+          <button id="startButton" class="main-btn" onclick="startCamera()">Kamera starten</button>
+          <button id="stopButton" class="secondary-btn" onclick="stopCamera()">Kamera stoppen</button>
+        </div>
 
-async function loadModel(){
-if(model)return model;
-if(modelLoading)return modelLoading;
-modelLoading=(async()=>{
-if(!window.tmImage)throw new Error("Die Bilderkennungs-Bibliothek konnte nicht geladen werden. Prüfe deine Internetverbindung.");
-model=await tmImage.load(MODEL_URL,METADATA_URL);
-return model;
-})();
-try{return await modelLoading}
-catch(e){modelLoading=null;throw e}
-}
+        <div class="button-row">
+          <button class="secondary-btn" onclick="showScreen('factsScreen')">Zurück zu den Fakten</button>
+          <button class="secondary-btn" onclick="showHome()">Zur Übersicht</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-async function startCamera(){
-if(scanning)return;
-const startButton=document.getElementById("startButton");
-const status=document.getElementById("cameraStatus");
-const result=document.getElementById("predictionResult");
-startButton.disabled=true;
-try{
-if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
-throw new Error("Dein Browser unterstützt den Kamerazugriff nicht. Öffne die veröffentlichte HTTPS-Website.");
-}
-status.textContent="Lade das Bilderkennungsmodell …";
-await loadModel();
-cameraStream=await navigator.mediaDevices.getUserMedia({
-video:{facingMode:{ideal:"environment"}},audio:false
-});
-const video=document.getElementById("camera");
-video.srcObject=cameraStream;video.style.display="block";
-document.getElementById("cameraPlaceholder").style.display="none";
-await video.play();
-scanning=true;lastPrediction="";consecutiveMatches=0;
-status.textContent="Kamera läuft. Halte den Cookie ruhig in den markierten Bereich.";
-result.textContent="Ich prüfe den Cookie …";
-predictionLoop();
-}catch(e){
-console.error(e);stopCamera();
-status.textContent="Kamera oder Modell konnte nicht gestartet werden.";
-result.textContent=e.message||"Bitte erlaube den Kamerazugriff und lade die Seite erneut.";
-}finally{startButton.disabled=false}
-}
+  <!-- ERFOLG -->
+  <section id="successScreen" class="screen">
+    <div class="container">
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h2 id="successTitle">Cookie entdeckt!</h2>
+        <p id="successText"></p>
 
-function normalizeLabel(label){
-return String(label||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
-}
+        <div class="button-row">
+          <button class="main-btn" onclick="showHome()">Weitere Cookies entdecken</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-function labelToCookieKey(label){
-const normalized=normalizeLabel(label);
-const aliases={
-greece:["griechenland","greece","greek"],
-italy:["italien","italy","italian"],
-morocco:["marokko","morocco","moroccan"],
-philippines:["philippinen","philippines","filipino"],
-japan:["japan","japanese"],
-india:["indien","india","indian"]
-};
-for(const [key,names] of Object.entries(aliases)){
-if(names.some(name=>normalized===normalizeLabel(name)))return key;
-}
-return null;
-}
+  <!-- RABATTCODE -->
+  <section id="rewardScreen" class="screen">
+    <div class="container">
+      <div class="reward-card">
+        <div class="success-icon">🌍</div>
+        <h2>Du hast die Welt entdeckt!</h2>
+        <p>Du hast alle sechs BIVORO-Cookies erfolgreich entdeckt. Deine Belohnung wartet auf dich.</p>
+        <div class="discount-code">BIVORO10</div>
+        <p>Dein Rabattcode</p>
 
-function isNoCookieLabel(label){
-const t=normalizeLabel(label);
-return t.includes("keincookie")||t.includes("nocookie")||t.includes("nothing")||t.includes("background");
-}
+        <div class="button-row">
+          <button class="main-btn" onclick="copyCode()">Code kopieren</button>
+          <button class="secondary-btn" onclick="showHome()">Zur Übersicht</button>
+        </div>
+        <p class="small-note">Bitte prüfe, ob dieser Rabattcode deinem tatsächlich eingerichteten Angebot entspricht.</p>
+      </div>
+    </div>
+  </section>
 
-async function predictionLoop(){
-if(!scanning)return;
-const video=document.getElementById("camera");
-try{
-if(video.readyState>=2&&model){
-const predictions=await model.predict(video);
-if(!scanning)return;
-predictions.sort((a,b)=>b.probability-a.probability);
-const best=predictions[0];
-const confidence=best?best.probability:0;
-const key=best?labelToCookieKey(best.className):null;
-const isNone=best&&isNoCookieLabel(best.className);
-const result=document.getElementById("predictionResult");
+  <!-- BILDERKENNUNGS-BIBLIOTHEKEN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
 
-if(best&&confidence>=MIN_CONFIDENCE&&key===selectedCookie){
-consecutiveMatches=lastPrediction===key?consecutiveMatches+1:1;
-lastPrediction=key;
-result.textContent=`Erkannt: ${cookies[key].name} (${Math.round(confidence*100)} %). Bitte halte den Cookie noch kurz ruhig.`;
-if(consecutiveMatches>=REQUIRED_MATCHES){cookieRecognized();return}
-}else{
-lastPrediction="";consecutiveMatches=0;
-if(best&&confidence>=MIN_CONFIDENCE&&key&&key!==selectedCookie){
-result.textContent=`Ich erkenne ${cookies[key].name}. Du möchtest gerade ${cookies[selectedCookie].name} scannen. Bitte wechsle zum passenden Cookie.`;
-}else if(best&&confidence>=MIN_CONFIDENCE&&isNone){
-result.textContent="Ich erkenne keinen Cookie. Halte einen BIVORO-Cookie in den markierten Bereich.";
-}else{
-result.textContent="Noch nicht eindeutig erkannt. Halte den Cookie etwas näher an die Kamera oder drehe ihn langsam. Achte auf genügend Licht und einen ruhigen Hintergrund.";
-}
-}
-}
-}catch(e){
-console.error("Vorhersagefehler:",e);
-document.getElementById("predictionResult").textContent="Bei der Erkennung ist ein Fehler aufgetreten. Bitte starte die Kamera erneut.";
-stopCamera();return;
-}
-if(scanning)predictionTimer=window.setTimeout(predictionLoop,350);
-}
+  <script>
+    "use strict";
 
-function stopCamera(){
-scanning=false;
-if(predictionTimer!==null){clearTimeout(predictionTimer);predictionTimer=null}
-if(cameraStream){cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null}
-const video=document.getElementById("camera");
-if(video){video.pause();video.srcObject=null;video.style.display="none"}
-const placeholder=document.getElementById("cameraPlaceholder");
-if(placeholder)placeholder.style.display="block";
-}
+    /* MODELLDATEIEN UND ERKENNUNGSEINSTELLUNGEN */
+    const MODEL_URL = "./model.json";
+    const METADATA_URL = "./metadata.json";
+    const MIN_CONFIDENCE = 0.85;
+    const REQUIRED_MATCHES = 3;
 
-function cookieRecognized(){
-if(!selectedCookie||!scanning)return;
-const key=selectedCookie,c=cookies[key];
-stopCamera();
-if(!discovered.includes(key)){discovered.push(key);saveDiscovered()}
-createCookieGrid();
-document.getElementById("successTitle").textContent=`${c.flag} ${c.name} entdeckt!`;
-document.getElementById("successText").textContent=
-discovered.length===6
-?"Du hast auch diesen Cookie erkannt – alle sechs BIVORO-Cookies sind jetzt entdeckt!"
-:`Dein ${c.name}-Cookie wurde erkannt und abgehakt. Entdecke jetzt die übrigen Cookies.`;
-showScreen("successScreen");
-}
+    /* VOLLSTÄNDIGE FAKTEN UND COOKIE-BESCHREIBUNGEN */
+    const cookies = {
+      greece: {
+        name: "Griechenland",
+        flag: "🇬🇷",
+        flavor: "Walnuss & Honig",
+        short: "Griechenland besteht aus rund 6’000 Inseln und kleinen Inselchen. Bewohnt sind davon allerdings nur etwa 227. Das bedeutet: Ein grosser Teil der griechischen Inselwelt ist unbewohnt!",
+        random: "Viele denken bei Griechenland zuerst an Strände und Meer. Doch rund 80 % des Landes bestehen aus Bergen oder Hügeln – Griechenland ist damit eines der gebirgigsten Länder Europas.",
+        story: "In der griechischen Mythologie lebten die zwölf olympischen Hauptgötter auf dem Berg Olymp. Zeus galt als ihr Anführer und als Gott des Himmels und des Donners.",
+        appearance: "Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein Stück Walnuss."
+      },
 
-function showHome(){
-stopCamera();selectedCookie=null;createCookieGrid();
-showScreen(discovered.length>=6?"rewardScreen":"homeScreen");
-}
+      italy: {
+        name: "Italien",
+        flag: "🇮🇹",
+        flavor: "Espresso & braune Butter",
+        short: "Italien ist eines der Länder mit den meisten Vulkanen Europas. Einige davon sind noch aktiv, darunter der Ätna auf Sizilien, einer der aktivsten Vulkane der Welt.",
+        random: "Italien hat nicht nur ein Land innerhalb seiner Grenzen, sondern gleich zwei unabhängige Staaten: San Marino und die Vatikanstadt.",
+        story: "Kaffee gehört fest zur italienischen Alltagskultur. Der Espresso wird traditionell schnell an der Bar getrunken und ist viel mehr als nur ein Getränk: Für viele Italiener gehört die kurze Kaffeepause einfach zum täglichen Leben. Genau diese Kaffeekultur hat den Espresso weltweit bekannt gemacht.",
+        appearance: "Rund und goldbraun, mit einer weissen Spirale. In der Mitte befindet sich ein dunkles Kaffeebohnen-Element."
+      },
 
-async function copyCode(){
-try{
-await navigator.clipboard.writeText("BIVORO10");
-alert("Der Rabattcode BIVORO10 wurde kopiert!");
-}catch(e){alert("Der Code lautet BIVORO10. Du kannst ihn manuell kopieren.")}
-}
+      morocco: {
+        name: "Marokko",
+        flag: "🇲🇦",
+        flavor: "Orangenblüte, Zimt & Mandeln",
+        short: "Marokko ist eines der wenigen Länder der Welt, das sowohl am Atlantischen Ozean als auch am Mittelmeer liegt. Gleichzeitig reichen die Landschaften vom Meer über das Atlasgebirge bis an die Sahara.",
+        random: "In Marokko werden Orangenblüten nicht nur wegen ihres Duftes geschätzt. Das Wasser aus den Blüten wird auch zum Aromatisieren von Speisen und Getränken verwendet – zum Beispiel in Süssigkeiten und Gebäck.",
+        story: "Minztee ist in Marokko mehr als ein Getränk. Er gehört zur Gastfreundschaft und wird Gästen traditionell angeboten. Das Einschenken des Tees ist dabei selbst ein Teil der Kultur: Der Tee wird oft aus einiger Höhe in kleine Gläser gegossen.",
+        appearance: "Rund und goldbraun. Oben liegen zwei Orangenelemente übereinander beziehungsweise leicht versetzt aufeinander."
+      },
 
-createCookieGrid();
-</script>
+      philippines: {
+        name: "Philippinen",
+        flag: "🇵🇭",
+        flavor: "Kokos",
+        short: "Die Philippinen bestehen aus mehr als 7’600 Inseln. Deshalb ist das Land stark vom Meer geprägt – viele Orte sind nur über das Wasser erreichbar.",
+        random: "Kokosnüsse spielen auf den Philippinen eine besonders grosse Rolle. Fast jeder Teil der Kokospalme kann verwendet werden – von der Frucht über die Schale bis zu den Fasern.",
+        story: "Auf den Philippinen ist die Bayanihan-Tradition ein Symbol für Gemeinschaft und gegenseitige Hilfe. Der Begriff beschreibt die Idee, dass Menschen zusammenkommen und einander unterstützen, besonders wenn jemand Hilfe braucht. So steht Bayanihan bis heute für den Gedanken: Gemeinsam ist vieles möglich.",
+        appearance: "Rund und goldbraun, mit einem Zickzack-Muster. Darüber sind Kokosraspeln gestreut."
+      },
+
+      japan: {
+        name: "Japan",
+        flag: "🇯🇵",
+        flavor: "Matcha",
+        short: "Japan besteht aus tausenden Inseln und erstreckt sich über eine grosse Nord-Süd-Distanz. Dadurch gibt es im selben Land sehr unterschiedliche Landschaften und Klimazonen – von verschneiten Regionen im Norden bis zu subtropischen Inseln im Süden.",
+        random: "Matcha ist kein gewöhnlicher grüner Tee. Für Matcha werden die Teeblätter zu einem sehr feinen Pulver gemahlen – deshalb wird beim Trinken das ganze Teeblatt aufgenommen.",
+        story: "Die japanische Teezeremonie, Chanoyu, entwickelte sich über Jahrhunderte zu einer besonderen Form der Gastfreundschaft. Dabei geht es nicht nur um den Tee selbst, sondern auch um Ruhe, Aufmerksamkeit und den bewussten Moment. Matcha spielt dabei eine zentrale Rolle.",
+        appearance: "Rund und braun-grünlich, mit einem Zickzack-Muster. Darüber ist Matchapulver gestreut."
+      },
+
+      india: {
+        name: "Indien",
+        flag: "🇮🇳",
+        flavor: "Kardamom & Pistazie",
+        short: "Indien ist sprachlich aussergewöhnlich vielfältig. In der indischen Verfassung sind 22 Sprachen offiziell anerkannt – daneben werden im Alltag noch viele weitere Sprachen und Dialekte gesprochen.",
+        random: "Kardamom gehört zu den ältesten Gewürzen der Welt und wird in Indien schon seit sehr langer Zeit verwendet. Die kleinen grünen Kapseln enthalten winzige Samen mit einem intensiven, süsslich-würzigen Aroma.",
+        story: "Gewürze haben in Indien seit Jahrhunderten eine wichtige kulturelle Bedeutung. Sie wurden nicht nur zum Würzen von Speisen verwendet, sondern spielten auch in traditionellen Getränken, Festen und im Alltag eine Rolle. Dadurch entstand eine Küche, in der Gewürze wie Kardamom, Zimt und Nelken ganze Geschmackswelten prägen.",
+        appearance: "Rund und goldbraun, mit einem Zickzack- beziehungsweise Wellenmuster aus eher runden Wellen. Darüber sind Pistazienstückchen gestreut."
+      }
+    };
+
+    /* STATUS UND VARIABLEN */
+    let selectedCookie = null;
+    let cameraStream = null;
+    let model = null;
+    let scanning = false;
+    let predictionTimer = null;
+    let modelLoading = null;
+    let lastPrediction = "";
+    let consecutiveMatches = 0;
+
+    /* GESPEICHERTE COOKIES LADEN */
+    function loadDiscovered() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("bivoroDiscovered") || "[]");
+        return Array.isArray(saved)
+          ? saved.filter(key => Object.prototype.hasOwnProperty.call(cookies, key))
+          : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    let discovered = loadDiscovered();
+
+    function saveDiscovered() {
+      try {
+        localStorage.setItem("bivoroDiscovered", JSON.stringify(discovered));
+      } catch (error) {
+        console.warn("Fortschritt konnte nicht gespeichert werden.", error);
+      }
+    }
+
+    /* FORTSCHRITTSANZEIGE */
+    function updateProgress() {
+      document.getElementById("progressText").textContent =
+        `Entdeckt: ${discovered.length} / 6 Cookies`;
+      document.getElementById("progressFill").style.width =
+        `${(discovered.length / 6) * 100}%`;
+    }
+
+    /* COOKIE-KARTEN ERSTELLEN */
+    function createCookieGrid() {
+      const grid = document.getElementById("cookieGrid");
+      grid.replaceChildren();
+
+      Object.entries(cookies).forEach(([key, cookie]) => {
+        const card = document.createElement("div");
+        card.className = "cookie-card" + (discovered.includes(key) ? " completed" : "");
+
+        const flag = document.createElement("div");
+        flag.className = "flag";
+        flag.textContent = cookie.flag;
+
+        const title = document.createElement("h3");
+        title.textContent = cookie.name;
+
+        const flavor = document.createElement("div");
+        flavor.className = "flavor";
+        flavor.textContent = cookie.flavor;
+
+        card.append(flag, title, flavor);
+
+        if (discovered.includes(key)) {
+          const label = document.createElement("div");
+          label.className = "completed-label";
+          label.textContent = "✓ Bereits entdeckt";
+          card.appendChild(label);
+        }
+
+        const button = document.createElement("button");
+        button.className = "choose-btn";
+        button.textContent = discovered.includes(key) ? "Nochmals ansehen" : "Entdecken";
+        button.onclick = () => selectCookie(key);
+        card.appendChild(button);
+        grid.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    /* BILDSCHIRME WECHSELN */
+    function showScreen(id) {
+      stopCamera(false);
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* COOKIE AUSWÄHLEN UND FAKTEN ANZEIGEN */
+    function selectCookie(key) {
+      if (!Object.prototype.hasOwnProperty.call(cookies, key)) return;
+
+      selectedCookie = key;
+      const cookie = cookies[key];
+
+      document.getElementById("factsFlag").textContent = cookie.flag;
+      document.getElementById("factsCountry").textContent = cookie.name;
+      document.getElementById("factShort").textContent = cookie.short;
+      document.getElementById("factRandom").textContent = cookie.random;
+      document.getElementById("factStory").textContent = cookie.story;
+
+      showScreen("factsScreen");
+    }
+
+    /* SCANNER VORBEREITEN */
+    function openScanner() {
+      if (!selectedCookie) return;
+
+      const cookie = cookies[selectedCookie];
+      document.getElementById("scannerFlag").textContent = cookie.flag;
+      document.getElementById("scannerCountry").textContent = cookie.name;
+      document.getElementById("cookieAppearance").textContent = cookie.appearance;
+      document.getElementById("predictionResult").textContent =
+        "Starte die Kamera, um deinen Cookie zu prüfen.";
+      document.getElementById("cameraStatus").textContent = "Bereit zum Scannen.";
+      showScreen("scannerScreen");
+    }
+
+    /* TEACHABLE MACHINE-MODELL LADEN */
+    async function loadModel() {
+      if (model) return model;
+      if (modelLoading) return modelLoading;
+
+      modelLoading = (async () => {
+        if (!window.tmImage) {
+          throw new Error(
+            "Die Bilderkennungs-Bibliothek konnte nicht geladen werden. Prüfe deine Internetverbindung und lade die Seite erneut."
+          );
+        }
+
+        model = await window.tmImage.load(MODEL_URL, METADATA_URL);
+        return model;
+      })();
+
+      try {
+        return await modelLoading;
+      } catch (error) {
+        modelLoading = null;
+        throw error;
+      }
+    }
+
+    /* KAMERA STARTEN UND BILDERKENNUNG BEGINNEN */
+    async function startCamera() {
+      if (scanning) return;
+
+      const startButton = document.getElementById("startButton");
+      const status = document.getElementById("cameraStatus");
+      const result = document.getElementById("predictionResult");
+
+      startButton.disabled = true;
+
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error(
+            "Dein Browser unterstützt den Kamerazugriff nicht. Öffne die veröffentlichte HTTPS-Website."
+          );
+        }
+
+        status.textContent = "Lade das Bilderkennungsmodell …";
+        result.textContent = "Bitte warte kurz, während das Modell geladen wird.";
+
+        await loadModel();
+
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } },
+          audio: false
+        });
+
+        const video = document.getElementById("camera");
+        video.srcObject = cameraStream;
+        video.style.display = "block";
+        document.getElementById("cameraPlaceholder").style.display = "none";
+
+        await video.play();
+
+        scanning = true;
+        lastPrediction = "";
+        consecutiveMatches = 0;
+        status.textContent = "Kamera läuft. Halte den Cookie ruhig in den markierten Bereich.";
+        result.textContent = "Ich prüfe den Cookie …";
+
+        predictionLoop();
+      } catch (error) {
+        console.error(error);
+        stopCamera(false);
+        status.textContent = "Kamera oder Modell konnte nicht gestartet werden.";
+        result.textContent = error && error.message
+          ? error.message
+          : "Bitte erlaube den Kamerazugriff und lade die Seite erneut.";
+      } finally {
+        startButton.disabled = false;
+      }
+    }
+
+    /* MODELL-KLASSENNAMEN VEREINHEITLICHEN */
+    function normalizeLabel(label) {
+      return String(label || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function labelToCookieKey(label) {
+      const normalized = normalizeLabel(label);
+      const aliases = {
+        greece: ["griechenland", "greece", "greek"],
+        italy: ["italien", "italy", "italian"],
+        morocco: ["marokko", "morocco", "moroccan"],
+        philippines: ["philippinen", "philippines", "filipino"],
+        japan: ["japan", "japanese"],
+        india: ["indien", "india", "indian"]
+      };
+
+      for (const [key, names] of Object.entries(aliases)) {
+        if (names.some(name => normalized === normalizeLabel(name))) {
+          return key;
+        }
+      }
+      return null;
+    }
+
+    function isNoCookieLabel(label) {
+      const normalized = normalizeLabel(label);
+      return normalized.includes("keincookie") ||
+        normalized.includes("nocookie") ||
+        normalized.includes("nothing") ||
+        normalized.includes("background");
+    }
+
+    /* LIVE-ERKENNUNG: MODELL PRÜFT DEN KAMERA-FEED */
+    async function predictionLoop() {
+      if (!scanning) return;
+
+      const video = document.getElementById("camera");
+
+      try {
+        if (video.readyState >= 2 && model) {
+          const predictions = await model.predict(video);
+          if (!scanning) return;
+
+          predictions.sort((a, b) => b.probability - a.probability);
+          const best = predictions[0];
+          const confidence = best ? best.probability : 0;
+          const key = best ? labelToCookieKey(best.className) : null;
+          const noCookie = Boolean(best && isNoCookieLabel(best.className));
+          const result = document.getElementById("predictionResult");
+
+          if (best && confidence >= MIN_CONFIDENCE && key === selectedCookie) {
+            consecutiveMatches = lastPrediction === key ? consecutiveMatches + 1 : 1;
+            lastPrediction = key;
+
+            result.textContent =
+              `Erkannt: ${cookies[key].name} (${Math.round(confidence * 100)} %). Bitte halte den Cookie noch kurz ruhig.`;
+
+            if (consecutiveMatches >= REQUIRED_MATCHES) {
+              cookieRecognized();
+              return;
+            }
+          } else {
+            lastPrediction = "";
+            consecutiveMatches = 0;
+
+            if (best && confidence >= MIN_CONFIDENCE && key && key !== selectedCookie) {
+              result.textContent =
+                `Ich erkenne ${cookies[key].name}. Du möchtest gerade ${cookies[selectedCookie].name} scannen. Bitte wechsle zum passenden Cookie.`;
+            } else if (best && confidence >= MIN_CONFIDENCE && noCookie) {
+              result.textContent =
+                "Ich erkenne keinen Cookie. Halte einen BIVORO-Cookie in den markierten Bereich.";
+            } else {
+              result.textContent =
+                "Noch nicht eindeutig erkannt. Probiere, den Cookie langsam zu drehen oder halte ihn etwas näher an die Kamera. Wenn er nicht ganz in den markierten Bereich passt, halte ihn weiter weg. Achte auf genügend Licht und einen ruhigen Hintergrund.";
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Vorhersagefehler:", error);
+        document.getElementById("predictionResult").textContent =
+          "Bei der Erkennung ist ein Fehler aufgetreten. Bitte starte die Kamera erneut.";
+        stopCamera();
+        return;
+      }
+
+      if (scanning) {
+        predictionTimer = window.setTimeout(predictionLoop, 350);
+      }
+    }
+
+    /* KAMERA UND ERKENNUNG STOPPEN */
+    function stopCamera(showStoppedStatus = true) {
+      scanning = false;
+
+      if (predictionTimer !== null) {
+        window.clearTimeout(predictionTimer);
+        predictionTimer = null;
+      }
+
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+
+      const video = document.getElementById("camera");
+      if (video) {
+        video.pause();
+        video.srcObject = null;
+        video.style.display = "none";
+      }
+
+      const placeholder = document.getElementById("cameraPlaceholder");
+      if (placeholder) {
+        placeholder.style.display = "block";
+      }
+
+      if (showStoppedStatus) {
+        const status = document.getElementById("cameraStatus");
+        if (status) status.textContent = "Kamera gestoppt.";
+      }
+
+      lastPrediction = "";
+      consecutiveMatches = 0;
+    }
+
+    /* ERFOLG SPEICHERN, WENN DER RICHTIGE COOKIE ERKANNT WURDE */
+    function cookieRecognized() {
+      if (!selectedCookie || !scanning) return;
+
+      const key = selectedCookie;
+      const cookie = cookies[key];
+      stopCamera();
+
+      if (!discovered.includes(key)) {
+        discovered.push(key);
+        saveDiscovered();
+      }
+
+      createCookieGrid();
+      document.getElementById("successTitle").textContent =
+        `${cookie.flag} ${cookie.name} entdeckt!`;
+      document.getElementById("successText").textContent =
+        discovered.length === 6
+          ? "Du hast auch diesen Cookie erkannt – alle sechs BIVORO-Cookies sind jetzt entdeckt!"
+          : `Dein ${cookie.name}-Cookie wurde erkannt und abgehakt. Entdecke jetzt die übrigen Cookies.`;
+
+      showScreen("successScreen");
+    }
+
+    /* ZUR STARTSEITE / ZUR BELOHNUNG */
+    function showHome() {
+      stopCamera(false);
+      selectedCookie = null;
+      createCookieGrid();
+      showScreen(discovered.length >= 6 ? "rewardScreen" : "homeScreen");
+    }
+
+    /* RABATTCODE KOPIEREN */
+    async function copyCode() {
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) {
+          throw new Error("Die Zwischenablage ist nicht verfügbar.");
+        }
+        await navigator.clipboard.writeText("BIVORO10");
+        alert("Der Rabattcode BIVORO10 wurde kopiert!");
+      } catch (error) {
+        alert("Der Code lautet BIVORO10. Du kannst ihn manuell kopieren.");
+      }
+    }
+
+    /* SEITE INITIALISIEREN */
+    createCookieGrid();
+  </script>
+
 </body>
 </html>
-
-
 
