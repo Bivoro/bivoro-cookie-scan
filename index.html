@@ -739,35 +739,29 @@
 
       updateProgress();
     }
-
     /* BILDSCHIRME WECHSELN */
-    /* BILDSCHIRME WECHSELN */
-function showScreen(id) {
-  stopCamera(false);
+    function showScreen(id) {
+      stopCamera(false);
 
-  if (id === "rewardScreen") {
-    const frame = document.getElementById("rewardFormFrame");
+      if (id === "rewardScreen") {
+        const frame = document.getElementById("rewardFormFrame");
 
-    if (frame) {
-      rewardFormLoadCount = 0;
-      frame.src =
-        "https://docs.google.com/forms/d/e/1FAIpQLSdLWtwgwqOPT8OWCmO1_INNTb2bqXU1uXFAsiKwoYMicPp43Q/viewform?embedded=true";
-    }
-  }
-   document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
+        if (frame) {
+          rewardFormLoadCount = 0;
+          frame.src =
+            "https://docs.google.com/forms/d/e/1FAIpQLSdLWtwgwqOPT8OWCmO1_INNTb2bqXU1uXFAsiKwoYMicPp43Q/viewform?embedded=true";
+        }
+      }
 
-  document.getElementById(id).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
       document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
       });
+
       document.getElementById(id).classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+  
     /* COOKIE AUSWÄHLEN UND FAKTEN ANZEIGEN */
     function selectCookie(key) {
       if (!Object.prototype.hasOwnProperty.call(cookies, key)) return;
