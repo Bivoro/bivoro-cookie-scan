@@ -335,18 +335,6 @@
       font-size: 36px;
     }
 
-    .discount-code {
-      background: #F9E2D5;
-      border: 2px dashed #8B0000;
-      color: #8B0000;
-      border-radius: 15px;
-      padding: 16px;
-      font-size: 25px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin: 20px 0;
-    }
-
     .small-note {
       font-size: 13px;
       color: #666666;
@@ -565,9 +553,19 @@
         </div>
 
         <p class="small-note">
-          Nach deiner Anfrage prüfen wir deine Angaben und
-          senden dir deinen persönlichen Rabattcode per E-Mail.
+          Nachdem du das Formular abgeschickt hast, kannst du den Reisepass hier zurücksetzen.
+          Deine Formularantwort bleibt in Google Sheets gespeichert.
         </p>
+
+        <div class="button-row">
+          <button
+            class="main-btn"
+            type="button"
+            onclick="resetPassportAfterForm()"
+          >
+            Formular abgeschickt – für meinen nächsten Besuch zurücksetzen
+          </button>
+        </div>
 
         <div class="button-row">
           <button
@@ -667,8 +665,6 @@
     let modelLoading = null;
     let lastPrediction = "";
     let consecutiveMatches = 0;
-    let rewardFormLoadCount = 0;
-    let resettingAfterForm = false;
 
     /* GESPEICHERTE COOKIES LADEN */
     function loadDiscovered() {
@@ -743,11 +739,10 @@
     function showScreen(id) {
       stopCamera(false);
 
+      // Das Formular beim Öffnen der Belohnungsseite frisch laden.
       if (id === "rewardScreen") {
         const frame = document.getElementById("rewardFormFrame");
-
         if (frame) {
-          rewardFormLoadCount = 0;
           frame.src =
             "https://docs.google.com/forms/d/e/1FAIpQLSdLWtwgwqOPT8OWCmO1_INNTb2bqXU1uXFAsiKwoYMicPp43Q/viewform?embedded=true";
         }
@@ -761,7 +756,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-  
+
     /* COOKIE AUSWÄHLEN UND FAKTEN ANZEIGEN */
     function selectCookie(key) {
       if (!Object.prototype.hasOwnProperty.call(cookies, key)) return;
@@ -1030,17 +1025,31 @@
       showScreen(discovered.length >= 6 ? "rewardScreen" : "homeScreen");
     }
 
-    /* RABATTCODE KOPIEREN */
-    async function copyCode() {
+    /* REISEPASS FÜR DEN NÄCHSTEN BESUCH ZURÜCKSETZEN */
+    function resetPassportAfterForm() {
+      const confirmed = window.confirm(
+        "Hast du das Google-Formular bereits abgeschickt?\n\n" +
+        "Wenn du bestätigst, wird nur dein gespeicherter Scan-Fortschritt auf diesem Browser gelöscht. " +
+        "Deine Formularantwort in Google Sheets bleibt erhalten."
+      );
+
+      if (!confirmed) return;
+
       try {
-        if (!navigator.clipboard || !navigator.clipboard.writeText) {
-          throw new Error("Die Zwischenablage ist nicht verfügbar.");
-        }
-        await navigator.clipboard.writeText("BIVORO10");
-        alert("Der Rabattcode BIVORO10 wurde kopiert!");
+        localStorage.removeItem("bivoroDiscovered");
       } catch (error) {
-        alert("Der Code lautet BIVORO10. Du kannst ihn manuell kopieren.");
+        console.warn("Der gespeicherte Fortschritt konnte nicht gelöscht werden.", error);
       }
+
+      discovered = [];
+      selectedCookie = null;
+      createCookieGrid();
+      showScreen("homeScreen");
+
+      window.alert(
+        "Dein Cookie-Reisepass wurde zurückgesetzt.\n" +
+        "Beim nächsten Besuch kannst du wieder von vorne beginnen."
+      );
     }
 
     /* SEITE INITIALISIEREN */
@@ -1050,3 +1059,6 @@
 </body>
 </html>
 
+
+
+    
